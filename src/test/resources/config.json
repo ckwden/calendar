@@ -1,0 +1,9 @@
+{
+  "holidayKey" : "randomkey",
+  "twilio": {
+    "sid": "randomsid",
+    "token": "randomtoken",
+    "numberTo": "randomnumberto",
+    "numberFrom": "randomnumberfrom"
+  }
+}
