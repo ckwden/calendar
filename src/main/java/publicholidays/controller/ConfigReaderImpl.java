@@ -1,39 +1,60 @@
 package publicholidays.controller;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.FileReader;
+import java.io.IOException;
 
 public class ConfigReaderImpl implements ConfigReader {
 
-    public ConfigReaderImpl(String filePath) {
+    private final JSONObject obj;
+    private final String filePath;
 
+    public ConfigReaderImpl(String filePath) {
+        this.filePath = filePath;
+        this.obj = getConfigDetails();
     }
 
     private JSONObject getConfigDetails() {
-        return null;
+        JSONParser parser = new JSONParser();
+        JSONObject obj = null;
+        try {
+            obj = (JSONObject) parser.parse(new FileReader(this.filePath));
+        }
+        catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+        return obj;
     }
 
     @Override
     public String getHolidayKey() {
-        return null;
+        return (String) obj.get("holidayKey");
     }
 
     @Override
     public String getTwilioSID() {
-        return null;
+        JSONObject twilioObj = (JSONObject) obj.get("twilio");
+        return (String) twilioObj.get("sid");
     }
 
     @Override
     public String getTwilioToken() {
-       return null;
+        JSONObject twilioObj = (JSONObject) obj.get("twilio");
+        return (String) twilioObj.get("token");
     }
 
     @Override
     public String getTwilioNumberTo() {
-        return null;
+        JSONObject twilioObj = (JSONObject) obj.get("twilio");
+        return (String) twilioObj.get("numberTo");
     }
 
     @Override
     public String getTwilioNumberFrom() {
-        return null;
+        JSONObject twilioObj = (JSONObject) obj.get("twilio");
+        return (String) twilioObj.get("numberFrom");
     }
 }
