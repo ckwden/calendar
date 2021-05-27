@@ -2,28 +2,36 @@ package publicholidays.model.holiday;
 
 public class HolidayImpl implements Holiday {
 
-    public HolidayImpl(String name, int year, int month, int day) {
+    private final String name;
+    private final int year;
+    private final int month;
+    private final int day;
 
+    public HolidayImpl(String name, int year, int month, int day) {
+        this.name = name;
+        this.year = year;
+        this.month = month;
+        this.day = day;
     }
 
     @Override
     public String getName() {
-        return null;
+        return name;
     }
 
     @Override
     public int getYear() {
-        return 0;
+        return year;
     }
 
     @Override
     public int getMonth() {
-        return 0;
+        return month;
     }
 
     @Override
     public int getDay() {
-        return 0;
+        return day;
     }
 
 }

@@ -6,7 +6,7 @@ public class PublicHolidayDummy implements PublicHoliday {
 
     @Override
     public Holiday getHoliday(LocalDate date) {
-        return null;
+        return new HolidayImpl("fake", date.getYear(), date.getMonthValue(), date.getDayOfMonth());
     }
 
     @Override

@@ -2,7 +2,6 @@ package publicholidays;
 
 import publicholidays.controller.ConfigReader;
 import publicholidays.controller.ConfigReaderImpl;
-import publicholidays.controller.ConnectionManagerImpl;
 import publicholidays.controller.JSONManagerImpl;
 import publicholidays.model.calendar.Calendar;
 import publicholidays.model.holiday.PublicHolidayImpl;
@@ -33,7 +32,7 @@ public class HolidaysApp extends Application {
         } else {
             ConfigReader config = new ConfigReaderImpl("src/main/resources/config.json");
             if (params.get(0).equals("online") && params.get(1).equals("online")) {
-                input = new PublicHolidayImpl(config.getHolidayKey(), new JSONManagerImpl(), new ConnectionManagerImpl());
+                input = new PublicHolidayImpl(config.getHolidayKey(), new JSONManagerImpl());
                 output = new MessengerImpl(config.getTwilioSID(), config.getTwilioToken(), config.getTwilioNumberTo(),
                         config.getTwilioNumberFrom());
             } else if (params.get(0).equals("offline") && params.get(1).equals("offline")){
@@ -41,7 +40,7 @@ public class HolidaysApp extends Application {
                 output = new MessengerDummy(config.getTwilioSID(), config.getTwilioToken(), config.getTwilioNumberTo(),
                         config.getTwilioNumberFrom());
             } if (params.get(0).equals("online") && params.get(1).equals("offline")) {
-                input = new PublicHolidayImpl(config.getHolidayKey(),  new JSONManagerImpl(), new ConnectionManagerImpl());
+                input = new PublicHolidayImpl(config.getHolidayKey(),  new JSONManagerImpl());
                 output = new MessengerDummy(config.getTwilioSID(), config.getTwilioToken(), config.getTwilioNumberTo(),
                         config.getTwilioNumberFrom());
             } else if (params.get(0).equals("offline") && params.get(1).equals("online")){
