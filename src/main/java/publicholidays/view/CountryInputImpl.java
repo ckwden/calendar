@@ -30,6 +30,13 @@ public class CountryInputImpl implements CountryInput {
         TextField countryCode = new TextField();
         countryCode.setPromptText("Enter country code");
         Button enter = new Button("Enter");
+        enter.setOnAction(e -> {
+            if (countryCode.getText() != null && !countryCode.getText().isEmpty()) {
+                calendar.setCountry(countryCode.getText());
+                CalendarView view = new CalendarView(calendar, 600, 480);
+                stage.setScene(view.getScene());
+            }
+        });
         pane.getChildren().addAll(countryCode, enter);
         stage.setScene(this.scene);
     }

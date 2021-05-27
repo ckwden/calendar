@@ -45,6 +45,14 @@ public class CalendarView {
         months.getItems().addAll(Month.values());
 
         Button sendReport = new Button("Send report");
+        sendReport.setOnAction(e -> {
+            if (months.getValue() != null) {
+                model.sendReport(months.getValue().getValue());
+            } else {
+                MessageWindow message = new MessageWindowImpl("Error", "Please select a month");
+                message.display();
+            }
+        });
         reportSection.getChildren().addAll(months, sendReport);
         layout.setBottom(reportSection);
 

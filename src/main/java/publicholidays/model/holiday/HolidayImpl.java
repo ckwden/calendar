@@ -25,4 +25,5 @@ public class HolidayImpl implements Holiday {
     public int getDay() {
         return 0;
     }
+
 }

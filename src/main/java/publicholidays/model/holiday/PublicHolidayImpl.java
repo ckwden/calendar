@@ -1,13 +1,13 @@
 package publicholidays.model.holiday;
 
-import publicholidays.controller.ConnectionManagerImpl;
-import publicholidays.controller.JSONManagerImpl;
+import publicholidays.controller.ConnectionManager;
+import publicholidays.controller.JSONManager;
 
 import java.time.LocalDate;
 
 public class PublicHolidayImpl implements PublicHoliday {
 
-    public PublicHolidayImpl(String holidayKey, JSONManagerImpl jsonManager, ConnectionManagerImpl connectionManager) { }
+    public PublicHolidayImpl(String holidayKey, JSONManager jsonManager, ConnectionManager connectionManager) { }
 
     @Override
     public Holiday getHoliday(LocalDate date) {

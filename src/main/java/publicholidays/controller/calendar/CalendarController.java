@@ -6,6 +6,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.util.Callback;
+import publicholidays.view.MessageWindow;
+import publicholidays.view.MessageWindowImpl;
 
 import java.time.LocalDate;
 
@@ -57,7 +59,20 @@ public class CalendarController implements ChangeListener<LocalDate> {
      */
     @Override
     public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
-
+        if (newValue.getYear() != LocalDate.now().getYear()) {
+            MessageWindow window = new MessageWindowImpl("Error", "Must select date in current year");
+            window.display();
+        }
+        boolean isHoliday = calendar.isHoliday(newValue);
+        String title = "Result";
+        String message;
+        if (isHoliday) {
+            message = "This date is a holiday";
+        } else {
+            message = "This date is not a holiday";
+        }
+        MessageWindow window = new MessageWindowImpl(title, message);
+        window.display();
     }
 
 }

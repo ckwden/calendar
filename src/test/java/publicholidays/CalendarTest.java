@@ -10,6 +10,7 @@ import publicholidays.model.holiday.PublicHoliday;
 import publicholidays.model.twilio.Messenger;
 
 import java.time.LocalDate;
+import java.time.Month;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -30,7 +31,7 @@ public class CalendarTest {
     @Test
     public void testSendReport() {
         calendar.sendReport(1);
-        verify(twilio).sendReport("");
+        verify(twilio).sendReport("Known holidays in " + Month.of(1).name() + ":");
     }
 
     @Test
@@ -45,16 +46,21 @@ public class CalendarTest {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Holiday holiday = new HolidayImpl("Random", 2021, 1, 1);
         when(ph.getHoliday(date)).thenReturn(holiday);
-        calendar.isHoliday(date);
+
+        boolean res = calendar.isHoliday(date);
+        assertTrue(res);
+        assertEquals(1, calendar.getHolidays().values().size());
+
         calendar.sendReport(1);
-        verify(twilio).sendReport("Known Holidays in January:\n" + holiday.getName());
+        verify(twilio).sendReport("Known holidays in " + Month.of(1).name() + ":\n" + holiday.getName());
 
         LocalDate newDate = LocalDate.of(2021, 1, 26);
         Holiday newHoliday = new HolidayImpl("Australia Day", 2021, 1, 26);
         when(ph.getHoliday(newDate)).thenReturn(newHoliday);
         calendar.isHoliday(newDate);
         calendar.sendReport(1);
-        String report = "Known Holidays in January:\n" + holiday.getName() + "\n" + newHoliday.getName();
+        String report = "Known holidays in "+ Month.of(1).name() + ":\n" + newHoliday.getName() + "\n" +
+                holiday.getName();
         verify(twilio).sendReport(report);
     }
 
@@ -79,10 +85,10 @@ public class CalendarTest {
         assertEquals(2, calendar.getHolidays().values().size());
 
         calendar.sendReport(1);
-        verify(twilio).sendReport("Known Holidays in JANUARY:\n" + holiday.getName());
+        verify(twilio).sendReport("Known holidays in " + Month.of(1).name() + ":\n" + holiday.getName());
 
         calendar.sendReport(2);
-        verify(twilio).sendReport("Known Holidays in FEBRUARY:\n" + newHoliday.getName());
+        verify(twilio).sendReport("Known holidays in " + Month.of(2).name() + ":\n" + newHoliday.getName());
     }
 
     @Test
