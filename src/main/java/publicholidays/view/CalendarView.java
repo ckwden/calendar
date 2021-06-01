@@ -1,5 +1,6 @@
 package publicholidays.view;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
@@ -36,6 +37,7 @@ public class CalendarView {
     }
 
     public void setScene() {
+        // https://stackoverflow.com/questions/34681975/javafx-extract-calendar-popup-from-datepicker-only-show-popup/34684268
         DatePickerSkin skin = new DatePickerSkin(datePicker);
         Node content = skin.getPopupContent();
         layout.setCenter(content);
@@ -53,8 +55,17 @@ public class CalendarView {
                 message.display();
             }
         });
+
         reportSection.getChildren().addAll(months, sendReport);
+
+        HBox closeWindowSection = new HBox();
+        closeWindowSection.setAlignment(Pos.CENTER_RIGHT);
+        Button close = new Button("Exit");
+        close.setOnAction(e -> scene.getWindow().hide());
+        closeWindowSection.getChildren().add(close);
+
         layout.setBottom(reportSection);
+        layout.setTop(closeWindowSection);
 
         datePicker.valueProperty().addListener(calendarController);
     }

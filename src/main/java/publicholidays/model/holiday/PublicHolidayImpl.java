@@ -36,6 +36,11 @@ public class PublicHolidayImpl implements PublicHoliday {
         this.countryCode = countryCode;
     }
 
+    @Override
+    public String getCountryCode() {
+        return this.countryCode;
+    }
+
     private String getData(String link, String key, String countryCode, int dayOfMonth, int month, int year) {
         BufferedReader reader;
         StringBuilder response = new StringBuilder();

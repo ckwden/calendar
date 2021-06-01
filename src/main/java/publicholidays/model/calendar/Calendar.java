@@ -17,4 +17,8 @@ public interface Calendar {
     void sendReport(int month);
 
     void setCountry(String countryCode);
+
+    boolean getFromAPI(LocalDate date);
+
+    boolean getFromDatabase(LocalDate date);
 }

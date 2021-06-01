@@ -6,5 +6,5 @@
 *GREEN:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/9749855a22ed4be13834d85ad3362f6c031170f1
 
 ### Reading configuration file, and parsing Holiday API response
-*RED:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/6af265685b0c5b375b97e80e9af72c88c20facc5
-*GREEN:*
+*RED:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/6af265685b0c5b375b97e80e9af72c88c20facc5  
+*GREEN:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/5b80224089b5135ff5793030c874cbb8374c3401

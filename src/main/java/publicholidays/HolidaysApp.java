@@ -3,6 +3,7 @@ package publicholidays;
 import publicholidays.controller.ConfigReader;
 import publicholidays.controller.ConfigReaderImpl;
 import publicholidays.controller.JSONManagerImpl;
+import publicholidays.database.DatabaseManagerImpl;
 import publicholidays.model.calendar.Calendar;
 import publicholidays.model.holiday.PublicHolidayImpl;
 import publicholidays.model.twilio.Messenger;
@@ -48,7 +49,7 @@ public class HolidaysApp extends Application {
                 output = new MessengerImpl(config.getTwilioSID(), config.getTwilioToken(), config.getTwilioNumberTo(),
                         config.getTwilioNumberFrom());
             }
-            calendar = new CalendarImpl(input, output);
+            calendar = new CalendarImpl(input, output, new DatabaseManagerImpl("src/main/resources/holidays.db"));
         }
         CountryInput country = new CountryInputImpl(primaryStage, 300, 100, calendar);
         country.setScene();

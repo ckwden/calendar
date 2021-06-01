@@ -22,6 +22,7 @@ public class CalendarController implements ChangeListener<LocalDate> {
         setColourChange();
     }
 
+    // https://stackoverflow.com/questions/50552075/datepicker-only-mark-certain-days-with-the-color-red
     public void setColourChange() {
         Callback<DatePicker, DateCell> factory = new Callback<>() {
             @Override

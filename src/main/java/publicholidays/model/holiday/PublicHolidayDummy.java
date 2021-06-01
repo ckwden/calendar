@@ -13,4 +13,9 @@ public class PublicHolidayDummy implements PublicHoliday {
     public void setCountryCode(String countryCode) {
 
     }
+
+    @Override
+    public String getCountryCode() {
+        return "AU";
+    }
 }

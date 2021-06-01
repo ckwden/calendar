@@ -1,5 +1,6 @@
 package publicholidays.model.calendar;
 
+import publicholidays.database.DatabaseManager;
 import publicholidays.model.holiday.PublicHoliday;
 import publicholidays.model.twilio.Messenger;
 import publicholidays.model.holiday.Holiday;
@@ -17,12 +18,14 @@ public class CalendarImpl implements Calendar {
     private List<LocalDate> notHolidays;
     private PublicHoliday input;
     private Messenger output;
+    private DatabaseManager db;
 
-    public CalendarImpl(PublicHoliday publicHoliday, Messenger output) {
+    public CalendarImpl(PublicHoliday publicHoliday, Messenger output, DatabaseManager db) {
         this.holidays = new HashMap<>();
         this.notHolidays = new ArrayList<>();
         this.input = publicHoliday;
         this.output = output;
+        this.db = db;
     }
 
     @Override
@@ -54,6 +57,16 @@ public class CalendarImpl implements Calendar {
     @Override
     public void setCountry(String countryCode) {
         input.setCountryCode(countryCode);
+    }
+
+    @Override
+    public boolean getFromAPI(LocalDate date) {
+        return false;
+    }
+
+    @Override
+    public boolean getFromDatabase(LocalDate date) {
+        return false;
     }
 
     /**

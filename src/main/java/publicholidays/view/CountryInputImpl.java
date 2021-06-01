@@ -1,5 +1,6 @@
 package publicholidays.view;
 
+import javafx.scene.control.TextFormatter;
 import publicholidays.model.calendar.Calendar;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -29,6 +30,13 @@ public class CountryInputImpl implements CountryInput {
     public void setScene() {
         TextField countryCode = new TextField();
         countryCode.setPromptText("Enter country code");
+
+        // https://stackoverflow.com/questions/47376362/javafx-force-input-from-textfield-to-be-uppercase/47376468
+        countryCode.setTextFormatter(new TextFormatter<>((change -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+        })));
+
         Button enter = new Button("Enter");
         enter.setOnAction(e -> {
             if (countryCode.getText() != null && !countryCode.getText().isEmpty()) {

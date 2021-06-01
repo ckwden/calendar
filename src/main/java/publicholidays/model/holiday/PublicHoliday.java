@@ -7,4 +7,6 @@ public interface PublicHoliday {
     Holiday getHoliday(LocalDate date);
 
     void setCountryCode(String countryCode);
+
+    String getCountryCode();
 }

@@ -21,7 +21,6 @@ public class MessengerImpl implements Messenger {
     @Override
     public void sendReport(String report) {
         Twilio.init(sid, token);
-        Message message = Message.creator(new PhoneNumber(numberTo), new PhoneNumber(numberFrom), report).create();
-        System.out.println(message);
+        Message.creator(new PhoneNumber(numberTo), new PhoneNumber(numberFrom), report).create();
     }
 }

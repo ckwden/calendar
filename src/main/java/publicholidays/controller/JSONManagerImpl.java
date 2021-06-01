@@ -19,7 +19,6 @@ public class JSONManagerImpl implements JSONManager {
     public Holiday getHoliday(String response) {
         HolidayImpl holiday = null;
         try {
-            System.out.println(response);
             JSONArray holidays = (JSONArray) parser.parse(response);
             if (holidays.size() > 0) {
                 JSONObject obj = (JSONObject) holidays.get(0);
