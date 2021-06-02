@@ -54,7 +54,7 @@ public class DatabaseManagerImpl implements DatabaseManager {
         int month = date.getMonth().getValue();
         int day = date.getDayOfMonth();
         try {
-            String query = String.format("INSERT OR IGNORE INTO holidays VALUES(%s, %s, %s, \"%s\", \"%s\");",
+            String query = String.format("INSERT OR REPLACE INTO holidays VALUES(%s, %s, %s, \"%s\", \"%s\");",
                     year, month, day,
                     name, countryCode);
             System.out.println(query);

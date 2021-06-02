@@ -39,17 +39,6 @@ public class CalendarImpl implements Calendar {
     }
 
     @Override
-    public boolean isHoliday(LocalDate date) {
-        Holiday holiday = input.getHoliday(date);
-        if (holiday == null) {
-            notHolidays.add(date);
-            return false;
-        }
-        holidays.put(date, holiday);
-        return true;
-    }
-
-    @Override
     public void sendReport(int month) {
         output.sendReport(makeReport(month));
     }
@@ -65,14 +54,17 @@ public class CalendarImpl implements Calendar {
         if (holiday == null) {
             if (!notHolidays.contains(date)) {
                 notHolidays.add(date);
-                db.commitHoliday(date, "", input.getCountryCode());
             }
+            holidays.remove(date);
+            db.commitHoliday(date, "", input.getCountryCode());
             return false;
         } else {
-            if (!holidays.containsKey(date)) {
+            if (holidays.containsKey(date)) {
+                holidays.replace(date, holiday);
+            } else {
                 holidays.put(date, holiday);
-                db.commitHoliday(date, holiday.getName(), input.getCountryCode());
             }
+            db.commitHoliday(date, holiday.getName(), input.getCountryCode());
             return true;
         }
     }

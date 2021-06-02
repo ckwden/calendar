@@ -12,8 +12,6 @@ public interface Calendar {
 
     List<LocalDate> getNotHolidays();
 
-    boolean isHoliday(LocalDate date);
-
     void sendReport(int month);
 
     void setCountry(String countryCode);

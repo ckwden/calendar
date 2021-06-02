@@ -6,18 +6,19 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.util.Callback;
-import publicholidays.view.MessageWindow;
+import publicholidays.view.CalendarViewImpl;
 import publicholidays.view.MessageWindowImpl;
+import publicholidays.view.SecondaryWindow;
 
 import java.time.LocalDate;
 
 public class CalendarController implements ChangeListener<LocalDate> {
 
-    private DatePicker picker;
+    private CalendarViewImpl view;
     private Calendar calendar;
 
-    public CalendarController(DatePicker picker, Calendar calendar) {
-        this.picker = picker;
+    public CalendarController(CalendarViewImpl view, Calendar calendar) {
+        this.view = view;
         this.calendar = calendar;
         setColourChange();
     }
@@ -43,7 +44,7 @@ public class CalendarController implements ChangeListener<LocalDate> {
                 };
             }
         };
-        picker.setDayCellFactory(factory);
+        view.getDatePicker().setDayCellFactory(factory);
     }
 
     /**
@@ -61,19 +62,23 @@ public class CalendarController implements ChangeListener<LocalDate> {
     @Override
     public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
         if (newValue.getYear() != LocalDate.now().getYear()) {
-            MessageWindow window = new MessageWindowImpl("Error", "Must select date in current year");
+            SecondaryWindow window = new MessageWindowImpl("Error", "Must select date in current year");
             window.display();
         }
-        boolean isHoliday = calendar.isHoliday(newValue);
-        String title = "Result";
-        String message;
-        if (isHoliday) {
-            message = "This date is a holiday";
+        boolean inDatabase = calendar.getFromDatabase(newValue);
+        if (inDatabase) {
+            view.requestLoadMethod(calendar, newValue);
         } else {
-            message = "This date is not a holiday";
+            calendar.getFromAPI(newValue);
+            displayResult(newValue);
         }
-        MessageWindow window = new MessageWindowImpl(title, message);
-        window.display();
     }
 
+    public void displayResult(LocalDate date) {
+        if (calendar.getNotHolidays().contains(date)) {
+            view.showResult(false);
+        } else if (calendar.getHolidays().containsKey(date)) {
+            view.showResult(true);
+        }
+    }
 }

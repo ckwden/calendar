@@ -1,6 +1,6 @@
 package publicholidays.view;
 
-public interface MessageWindow {
+public interface SecondaryWindow {
 
     void display();
 }

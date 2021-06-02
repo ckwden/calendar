@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 /**
  * Creates a window displaying a message for the user (e.g. holiday/not holiday)
  */
-public class MessageWindowImpl implements MessageWindow {
+public class MessageWindowImpl implements SecondaryWindow {
 
     private String message;
     private String title;
@@ -40,7 +40,7 @@ public class MessageWindowImpl implements MessageWindow {
         });
         pane.getChildren().addAll(label, close);
 
-        Scene scene = new Scene(pane, 200, 100);
+        Scene scene = new Scene(pane, 150, 60);
         window.setScene(scene);
         window.show();
     }

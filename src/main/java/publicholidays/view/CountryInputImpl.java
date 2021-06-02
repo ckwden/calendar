@@ -1,14 +1,15 @@
 package publicholidays.view;
 
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.ComboBox;
 import publicholidays.model.calendar.Calendar;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class CountryInputImpl implements CountryInput {
+import java.util.Locale;
+
+public class CountryInputImpl implements SecondaryWindow {
 
     private Scene scene;
     private HBox pane;
@@ -22,30 +23,20 @@ public class CountryInputImpl implements CountryInput {
         this.calendar = calendar;
     }
 
-    public Scene getScene() {
-        return scene;
-    }
-
     @Override
-    public void setScene() {
-        TextField countryCode = new TextField();
-        countryCode.setPromptText("Enter country code");
-
-        // https://stackoverflow.com/questions/47376362/javafx-force-input-from-textfield-to-be-uppercase/47376468
-        countryCode.setTextFormatter(new TextFormatter<>((change -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-        })));
+    public void display() {
+        ComboBox<String> codes = new ComboBox<>();
+        codes.getItems().addAll(Locale.getISOCountries());
 
         Button enter = new Button("Enter");
         enter.setOnAction(e -> {
-            if (countryCode.getText() != null && !countryCode.getText().isEmpty()) {
-                calendar.setCountry(countryCode.getText());
-                CalendarView view = new CalendarView(calendar, 600, 480);
+            if (codes.getValue() != null) {
+                calendar.setCountry(codes.getValue());
+                CalendarViewImpl view = new CalendarViewImpl(calendar, 600, 480);
                 stage.setScene(view.getScene());
             }
         });
-        pane.getChildren().addAll(countryCode, enter);
+        pane.getChildren().addAll(codes, enter);
         stage.setScene(this.scene);
     }
 }
