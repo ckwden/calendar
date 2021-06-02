@@ -4,12 +4,15 @@ import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 
+/**
+ * Implements the Messenger interface
+ */
 public class MessengerImpl implements Messenger {
 
     private final String sid;
     private final String token;
-    private String numberTo;
-    private String numberFrom;
+    private final String numberTo;
+    private final String numberFrom;
 
     public MessengerImpl(String sid, String token, String numberTo, String numberFrom) {
         this.sid = sid;

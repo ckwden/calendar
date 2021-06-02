@@ -9,6 +9,9 @@ import publicholidays.view.SecondaryWindow;
 
 import java.util.List;
 
+/**
+ * The main driver of the application
+ */
 public class HolidaysApp extends Application {
 
     @Override

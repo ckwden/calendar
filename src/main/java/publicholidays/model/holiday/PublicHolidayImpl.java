@@ -10,12 +10,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
 
+/**
+ * Implements the PublicHoliday interface
+ */
 public class PublicHolidayImpl implements PublicHoliday {
 
-    private String url;
+    private final String url;
     private String countryCode;
-    private String key;
-    private JSONManager json;
+    private final String key;
+    private final JSONManager json;
 
     public PublicHolidayImpl(String key, JSONManager json) {
         this.url = "https://holidays.abstractapi.com/v1/";
@@ -41,6 +44,16 @@ public class PublicHolidayImpl implements PublicHoliday {
         return this.countryCode;
     }
 
+    /**
+     * Sends the request to the Holiday API for a given date
+     * @param link the API url
+     * @param key the user's authentication key for the API
+     * @param countryCode the ISO Alpha-2 code for the country for the query
+     * @param dayOfMonth the day of the month for the query
+     * @param month the number of the month in the year for the query
+     * @param year the year for the query
+     * @return the response after sending the request to the API
+     */
     private String getData(String link, String key, String countryCode, int dayOfMonth, int month, int year) {
         BufferedReader reader;
         StringBuilder response = new StringBuilder();

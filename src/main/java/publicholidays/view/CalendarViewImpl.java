@@ -15,6 +15,9 @@ import javafx.scene.layout.BorderPane;
 import java.time.LocalDate;
 import java.time.Month;
 
+/**
+ * Implements the CalendarView interface
+ */
 public class CalendarViewImpl implements CalendarView {
 
     private Scene scene;

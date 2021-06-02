@@ -2,6 +2,9 @@ package publicholidays.model.holiday;
 
 import java.time.LocalDate;
 
+/**
+ * Implements the PublicHoliday interface as a dummy
+ */
 public class PublicHolidayDummy implements PublicHoliday {
 
     @Override

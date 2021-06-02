@@ -1,15 +1,14 @@
 package publicholidays.model.twilio;
 
+/**
+ * Implements the Messenger interface as a dummy
+ */
 public class MessengerDummy implements Messenger {
 
-    private String sid;
-    private String token;
-    private String numberTo;
-    private String numberFrom;
+    private final String numberTo;
+    private final String numberFrom;
 
-    public MessengerDummy(String sid, String token, String numberTo, String numberFrom) {
-        this.sid = sid;
-        this.token = token;
+    public MessengerDummy(String numberTo, String numberFrom) {
         this.numberFrom = numberFrom;
         this.numberTo = numberTo;
     }

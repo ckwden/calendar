@@ -2,6 +2,9 @@ package publicholidays.controller;
 
 import publicholidays.model.holiday.Holiday;
 
+/**
+ * Handles the Holiday API response in JSON format after a call is made to it
+ */
 public interface JSONManager {
 
     /**

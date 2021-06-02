@@ -7,6 +7,9 @@ import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Implements the ConfigReader interface methods
+ */
 public class ConfigReaderImpl implements ConfigReader {
 
     private final JSONObject obj;

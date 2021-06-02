@@ -6,9 +6,12 @@ import publicholidays.model.holiday.HolidayImpl;
 import java.sql.*;
 import java.time.LocalDate;
 
+/**
+ * Class that implements the DatabaseManager interface
+ */
 public class DatabaseManagerImpl implements DatabaseManager {
 
-    private String filePath;
+    private final String filePath;
     private Connection conn;
 
     public DatabaseManagerImpl(String filePath) {
@@ -16,6 +19,9 @@ public class DatabaseManagerImpl implements DatabaseManager {
         setUpConnection();
     }
 
+    /**
+     * Opens the database for connection
+     */
     private void setUpConnection() {
         try {
             this.conn = DriverManager.getConnection("jdbc:sqlite:" + filePath);

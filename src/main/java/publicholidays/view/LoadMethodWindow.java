@@ -12,6 +12,10 @@ import publicholidays.model.calendar.Calendar;
 
 import java.time.LocalDate;
 
+/**
+ * Implements the SecondaryWindow interface to display a window asking for whether the user would like to load data from
+ * the database or make a new call to the Holiday API
+ */
 public class LoadMethodWindow implements SecondaryWindow {
 
     private Calendar calendar;

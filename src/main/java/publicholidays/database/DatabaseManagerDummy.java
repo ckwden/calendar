@@ -5,6 +5,9 @@ import publicholidays.model.holiday.HolidayImpl;
 
 import java.time.LocalDate;
 
+/**
+ * Dummy class that implements the DatabaseManager interface
+ */
 public class DatabaseManagerDummy implements DatabaseManager {
 
     @Override

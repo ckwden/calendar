@@ -1,5 +1,8 @@
 package publicholidays.model.holiday;
 
+/**
+ * Implements the Holiday interface
+ */
 public class HolidayImpl implements Holiday {
 
     private final String name;

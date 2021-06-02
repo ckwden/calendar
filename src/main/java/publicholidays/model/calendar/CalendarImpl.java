@@ -12,6 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Implements the Calendar interface
+ */
 public class CalendarImpl implements Calendar {
 
     private Map<LocalDate, Holiday> holidays;

@@ -7,9 +7,15 @@ import org.json.simple.parser.JSONParser;
 import publicholidays.model.holiday.HolidayImpl;
 import org.json.simple.parser.ParseException;
 
+/**
+ * Implements the JSONManager interface
+ */
 public class JSONManagerImpl implements JSONManager {
 
-    private JSONParser parser;
+    /**
+     * The object to parse the JSON response from the Holiday API
+     */
+    private final JSONParser parser;
 
     public JSONManagerImpl() {
         parser = new JSONParser();

@@ -13,14 +13,17 @@ import javafx.stage.Stage;
  */
 public class MessageWindowImpl implements SecondaryWindow {
 
-    private String message;
-    private String title;
+    private final String message;
+    private final String title;
 
     public MessageWindowImpl(String title, String message) {
         this.message = message;
         this.title = title;
     }
 
+    /**
+     * Displays the window with the message for the user
+     */
     @Override
     public void display() {
         Stage window = new Stage();

@@ -12,6 +12,9 @@ import publicholidays.view.SecondaryWindow;
 
 import java.time.LocalDate;
 
+/**
+ * Acts as the intermediate object between the Calendar model and its view
+ */
 public class CalendarController implements ChangeListener<LocalDate> {
 
     private CalendarViewImpl view;
@@ -23,8 +26,11 @@ public class CalendarController implements ChangeListener<LocalDate> {
         setColourChange();
     }
 
-    // https://stackoverflow.com/questions/50552075/datepicker-only-mark-certain-days-with-the-color-red
+    /**
+     * Configures the colour changes for the cells to indicate whether the dates are a public holiday or not
+     */
     public void setColourChange() {
+        // https://stackoverflow.com/questions/50552075/datepicker-only-mark-certain-days-with-the-color-red
         Callback<DatePicker, DateCell> factory = new Callback<>() {
             @Override
             public DateCell call(DatePicker param) {
@@ -48,13 +54,7 @@ public class CalendarController implements ChangeListener<LocalDate> {
     }
 
     /**
-     * This method needs to be provided by an implementation of
-     * {@code ChangeListener}. It is called if the value of an
-     * {@link ObservableValue} changes.
-     * <p>
-     * In general, it is considered bad practice to modify the observed value in
-     * this method.
-     *
+     * Observes changes to user input when clicking on calendar cells to update the calendar model and view
      * @param observable The {@code ObservableValue} which value changed
      * @param oldValue   The old value
      * @param newValue   The new value
@@ -74,6 +74,10 @@ public class CalendarController implements ChangeListener<LocalDate> {
         }
     }
 
+    /**
+     * Manipulates the view to display the result of clicking on a date cell
+     * @param date the date of the cell that has been clicked
+     */
     public void displayResult(LocalDate date) {
         if (calendar.getNotHolidays().contains(date)) {
             view.showResult(false);
