@@ -81,7 +81,8 @@ public class CalendarTest {
         when(ph.getCountryCode()).thenReturn("AU");
         when(db.getHoliday(date, ph.getCountryCode())).thenReturn(holiday);
         LocalDate newDate = LocalDate.of(2021, 12, 12);
-        when(db.getHoliday(newDate, ph.getCountryCode())).thenReturn(null);
+        Holiday newHoliday = new HolidayImpl("", 2021, 1,1);
+        when(db.getHoliday(newDate, ph.getCountryCode())).thenReturn(newHoliday);
 
         calendar.getFromDatabase(date);
         assertEquals(1, calendar.getHolidays().size());
