@@ -61,12 +61,39 @@ public class CalendarImpl implements Calendar {
 
     @Override
     public boolean getFromAPI(LocalDate date) {
-        return false;
+        Holiday holiday = input.getHoliday(date);
+        if (holiday == null) {
+            if (!notHolidays.contains(date)) {
+                notHolidays.add(date);
+                db.commitHoliday(date, "", input.getCountryCode());
+            }
+            return false;
+        } else {
+            if (!holidays.containsKey(date)) {
+                holidays.put(date, holiday);
+                db.commitHoliday(date, holiday.getName(), input.getCountryCode());
+            }
+            return true;
+        }
     }
 
     @Override
     public boolean getFromDatabase(LocalDate date) {
-        return false;
+        Holiday holiday = db.getHoliday(date, input.getCountryCode());
+        if (holiday == null) {
+            return false;
+        } else {
+            if (holiday.getName().equals("")) {
+                if (!notHolidays.contains(date)) {
+                    notHolidays.add(date);
+                }
+            } else {
+                if (!holidays.containsKey(date)) {
+                    holidays.put(date, holiday);
+                }
+            }
+            return true;
+        }
     }
 
     /**

@@ -10,5 +10,5 @@
 *GREEN:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/5b80224089b5135ff5793030c874cbb8374c3401
 
 ### Integrating database into implementation
-*RED:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/7e58f22e56153b90fdbb96a170c419ce6e99fb4a
+*RED:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/6ab24ea4356e0473b9e5e54c537736c98792d305
 *GREEN:*
