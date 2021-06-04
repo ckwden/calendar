@@ -1,9 +1,7 @@
 package publicholidays;
 
 import publicholidays.controller.ConfigReader;
-import publicholidays.controller.JsonManager;
 import publicholidays.database.DatabaseManager;
-import publicholidays.database.DatabaseManagerDummy;
 import publicholidays.database.DatabaseManagerImpl;
 import publicholidays.model.calendar.Calendar;
 import publicholidays.model.calendar.CalendarImpl;
@@ -33,7 +31,7 @@ public class CalendarMaker {
      * @return
      */
     public Calendar makeCalendar(String input, String output, String dbFile) {
-        return new CalendarImpl(inputMode(input), outputMode(output), databaseMode(input, dbFile));
+        return new CalendarImpl(inputMode(input), outputMode(output), new DatabaseManagerImpl(dbFile));
     }
 
     /**
@@ -64,21 +62,6 @@ public class CalendarMaker {
                     configReader.getTwilioToken(),
                     configReader.getTwilioNumberTo(),
                     configReader.getTwilioNumberFrom());
-        }
-        return null;
-    }
-
-    /**
-     * Creates a new DatabaseManager model depending on the given mode
-     * @param mode the mode of the input API model
-     * @param dbFile the file path of the database
-     * @return a DatabaseManager object related to the mode, and if relevant, the file path
-     */
-    private DatabaseManager databaseMode(String mode, String dbFile) {
-        if (mode.equalsIgnoreCase("offline")) {
-            return new DatabaseManagerDummy();
-        } else if (mode.equalsIgnoreCase("online")) {
-            return new DatabaseManagerImpl(dbFile);
         }
         return null;
     }

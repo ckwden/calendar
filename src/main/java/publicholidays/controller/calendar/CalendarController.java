@@ -113,7 +113,7 @@ public class CalendarController implements ChangeListener<LocalDate> {
      * Uses another thread to retrieve information about the date from the database
      * @param date the date to be used for the query
      */
-    public void getFromDatabase(LocalDate date) {
+    private void getFromDatabase(LocalDate date) {
         dbThread.clickedDate = date;
         dbThread.restart();
     }
