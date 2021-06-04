@@ -1,21 +1,12 @@
 package publicholidays;
 
-import org.junit.Before;
 import org.junit.Test;
-import publicholidays.controller.JSONManager;
-import publicholidays.controller.JSONManagerImpl;
+import publicholidays.controller.JsonManager;
 import publicholidays.model.holiday.Holiday;
 
 import static org.junit.Assert.assertEquals;
 
-public class JSONManagerImplTest {
-
-    private JSONManager manager;
-
-    @Before
-    public void setup() {
-        manager = new JSONManagerImpl();
-    }
+public class JsonManagerTest {
 
     @Test
     public void testCorrectHoliday() {
@@ -31,7 +22,7 @@ public class JSONManagerImplTest {
                 "  \"date_month\":\"1\",  \n" +
                 "  \"date_day\": \"1\",  \n" +
                 "  \"week_day\": \"Wednesday\"}]";
-        Holiday holiday = manager.getHoliday(response);
+        Holiday holiday = JsonManager.getHoliday(response);
         assertEquals("New Year's Day", holiday.getName());
         assertEquals(2020, holiday.getYear());
         assertEquals(1, holiday.getMonth());

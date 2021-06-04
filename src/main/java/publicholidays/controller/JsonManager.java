@@ -8,21 +8,12 @@ import publicholidays.model.holiday.HolidayImpl;
 import org.json.simple.parser.ParseException;
 
 /**
- * Implements the JSONManager interface
+ * Handles the response in JSON foramt from the Holiday API call
  */
-public class JSONManagerImpl implements JSONManager {
+public class JsonManager {
 
-    /**
-     * The object to parse the JSON response from the Holiday API
-     */
-    private final JSONParser parser;
-
-    public JSONManagerImpl() {
-        parser = new JSONParser();
-    }
-
-    @Override
-    public Holiday getHoliday(String response) {
+    public static Holiday getHoliday(String response) {
+        JSONParser parser = new JSONParser();
         HolidayImpl holiday = null;
         try {
             JSONArray holidays = (JSONArray) parser.parse(response);

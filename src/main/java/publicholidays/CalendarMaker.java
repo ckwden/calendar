@@ -1,7 +1,7 @@
 package publicholidays;
 
 import publicholidays.controller.ConfigReader;
-import publicholidays.controller.JSONManagerImpl;
+import publicholidays.controller.JsonManager;
 import publicholidays.database.DatabaseManager;
 import publicholidays.database.DatabaseManagerDummy;
 import publicholidays.database.DatabaseManagerImpl;
@@ -45,7 +45,7 @@ public class CalendarMaker {
         if (mode.equalsIgnoreCase("offline")) {
             return new PublicHolidayDummy();
         } else if (mode.equalsIgnoreCase("online")) {
-            return new PublicHolidayImpl(configReader.getHolidayKey(), new JSONManagerImpl());
+            return new PublicHolidayImpl(configReader.getHolidayKey());
         }
         return null;
     }

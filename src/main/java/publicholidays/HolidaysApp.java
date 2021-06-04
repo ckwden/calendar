@@ -20,6 +20,7 @@ public class HolidaysApp extends Application {
         List<String> params = getParameters().getRaw();
         if (params.size() < 2) {
             System.out.println("Please specify the modes of the application.");
+            System.exit(0);
         } else {
             CalendarMaker maker = new CalendarMaker(new ConfigReaderImpl("src/main/resources/config.json"));
             Calendar calendar = maker.makeCalendar(params.get(0), params.get(1), "src/main/resources/holidays.db");

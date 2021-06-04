@@ -1,6 +1,6 @@
 package publicholidays.model.holiday;
 
-import publicholidays.controller.JSONManager;
+import publicholidays.controller.JsonManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,19 +18,17 @@ public class PublicHolidayImpl implements PublicHoliday {
     private final String url;
     private String countryCode;
     private final String key;
-    private final JSONManager json;
 
-    public PublicHolidayImpl(String key, JSONManager json) {
+    public PublicHolidayImpl(String key) {
         this.url = "https://holidays.abstractapi.com/v1/";
         this.key = key;
-        this.json = json;
     }
 
     @Override
     public Holiday getHoliday(LocalDate date) {
         String response = getData(url, key, countryCode, date.getDayOfMonth(), date.getMonth().getValue(),
                 date.getYear());
-        Holiday hol = json.getHoliday(response);
+        Holiday hol = JsonManager.getHoliday(response);
         return hol;
     }
 
