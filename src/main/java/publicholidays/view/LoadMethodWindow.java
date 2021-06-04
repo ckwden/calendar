@@ -18,12 +18,10 @@ import java.time.LocalDate;
  */
 public class LoadMethodWindow implements SecondaryWindow {
 
-    private Calendar calendar;
     private LocalDate date;
     private CalendarController controller;
 
-    public LoadMethodWindow(Calendar calendar, LocalDate date, CalendarController controller) {
-        this.calendar = calendar;
+    public LoadMethodWindow(LocalDate date, CalendarController controller) {
         this.date = date;
         this.controller = controller;
     }
@@ -33,6 +31,7 @@ public class LoadMethodWindow implements SecondaryWindow {
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
+
         window.setTitle("Cache Method");
         window.setMinWidth(300);
 
@@ -45,13 +44,12 @@ public class LoadMethodWindow implements SecondaryWindow {
 
         Button db = new Button("Database");
         db.setOnAction(e -> {
-            window.close();
             controller.displayResult(date);
+            window.close();
         });
         Button api = new Button("Make new API call");
         api.setOnAction(e -> {
-            calendar.getFromAPI(date);
-            controller.displayResult(date);
+            controller.getFromAPI(date);
             window.close();
         });
 

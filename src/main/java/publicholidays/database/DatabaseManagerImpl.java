@@ -63,7 +63,6 @@ public class DatabaseManagerImpl implements DatabaseManager {
             String query = String.format("INSERT OR REPLACE INTO holidays VALUES(%s, %s, %s, \"%s\", \"%s\");",
                     year, month, day,
                     name, countryCode);
-            System.out.println(query);
             Statement statement = conn.createStatement();
             statement.executeUpdate(query);
         } catch (SQLException throwables) {

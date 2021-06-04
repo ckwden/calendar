@@ -22,12 +22,10 @@ public class CalendarViewImpl implements CalendarView {
 
     private Scene scene;
     private BorderPane layout;
-    private Calendar model;
     private CalendarController calendarController;
     private DatePicker datePicker;
 
     public CalendarViewImpl(Calendar cal, int width, int height) {
-        this.model = cal;
         layout = new BorderPane();
         scene = new Scene(layout, width, height);
         datePicker = new DatePicker(LocalDate.now());
@@ -54,7 +52,7 @@ public class CalendarViewImpl implements CalendarView {
         Button sendReport = new Button("Send report");
         sendReport.setOnAction(e -> {
             if (months.getValue() != null) {
-                model.sendReport(months.getValue().getValue());
+                calendarController.sendReport(months.getValue().getValue());
             } else {
                 SecondaryWindow message = new MessageWindowImpl("Error", "Please select a month");
                 message.display();
@@ -78,24 +76,5 @@ public class CalendarViewImpl implements CalendarView {
     @Override
     public DatePicker getDatePicker() {
         return this.datePicker;
-    }
-
-    @Override
-    public void showResult(boolean isHoliday) {
-        String title = "Result";
-        String message;
-        if (isHoliday) {
-            message = "This date is a holiday";
-        } else {
-            message = "This date is not a holiday";
-        }
-        SecondaryWindow window = new MessageWindowImpl(title, message);
-        window.display();
-    }
-
-    @Override
-    public void requestLoadMethod(Calendar cal, LocalDate date) {
-        SecondaryWindow load = new LoadMethodWindow(cal, date, calendarController);
-        load.display();
     }
 }

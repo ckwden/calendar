@@ -1,14 +1,14 @@
 package publicholidays.controller.calendar;
 
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import publicholidays.model.calendar.Calendar;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.util.Callback;
-import publicholidays.view.CalendarViewImpl;
-import publicholidays.view.MessageWindowImpl;
-import publicholidays.view.SecondaryWindow;
+import publicholidays.view.*;
 
 import java.time.LocalDate;
 
@@ -17,12 +17,18 @@ import java.time.LocalDate;
  */
 public class CalendarController implements ChangeListener<LocalDate> {
 
-    private CalendarViewImpl view;
+    private CalendarView view;
     private Calendar calendar;
+    private MessengerService messengerThread;
+    private HolidayService holidayThread;
+    private DatabaseService dbThread;
 
-    public CalendarController(CalendarViewImpl view, Calendar calendar) {
+    public CalendarController(CalendarView view, Calendar calendar) {
         this.view = view;
         this.calendar = calendar;
+        this.messengerThread = new MessengerService();
+        this.holidayThread = new HolidayService();
+        this.dbThread = new DatabaseService();
         setColourChange();
     }
 
@@ -65,24 +71,126 @@ public class CalendarController implements ChangeListener<LocalDate> {
             SecondaryWindow window = new MessageWindowImpl("Error", "Must select date in current year");
             window.display();
         }
-        boolean inDatabase = calendar.getFromDatabase(newValue);
-        if (inDatabase) {
-            view.requestLoadMethod(calendar, newValue);
-        } else {
-            calendar.getFromAPI(newValue);
-            displayResult(newValue);
+        else {
+            getFromDatabase(newValue);
         }
     }
 
     /**
-     * Manipulates the view to display the result of clicking on a date cell
+     * Creates a new window to display the result of clicking on a date cell
      * @param date the date of the cell that has been clicked
      */
     public void displayResult(LocalDate date) {
+        String title = "Result";
+        String message = "Error";
         if (calendar.getNotHolidays().contains(date)) {
-            view.showResult(false);
+            message = "This date is not a holiday";
         } else if (calendar.getHolidays().containsKey(date)) {
-            view.showResult(true);
+            message = "This date is a holiday";
+        }
+        new MessageWindowImpl(title, message).display();
+    }
+
+    /**
+     * Uses another thread to send the report through the Twilio API
+     * @param month the month the report is based on
+     */
+    public void sendReport(int month) {
+        messengerThread.month = month;
+        messengerThread.restart();
+    }
+
+    /**
+     * Uses another thread to make the call to the Holiday API to retrieve information about the date
+     * @param date the date to be used for the query
+     */
+    public void getFromAPI(LocalDate date) {
+        holidayThread.clickedDate = date;
+        holidayThread.restart();
+    }
+
+    /**
+     * Uses another thread to retrieve information about the date from the database
+     * @param date the date to be used for the query
+     */
+    public void getFromDatabase(LocalDate date) {
+        dbThread.clickedDate = date;
+        dbThread.restart();
+    }
+
+    /**
+     * Creates a new window to ask how the user would like to load the information if it already exists in the database
+     * @param cal the calendar modelled in the view
+     * @param date the date picked by the user
+     */
+    public void requestLoadMethod(Calendar cal, LocalDate date) {
+        new LoadMethodWindow(date, this).display();
+    }
+
+    private class HolidayService extends Service<Void> {
+
+        private LocalDate clickedDate;
+
+        @Override
+        protected Task<Void> createTask() {
+            return new Task<>() {
+                @Override
+                protected Void call() throws Exception {
+                    calendar.getFromAPI(clickedDate);
+                    return null;
+                }
+
+                @Override
+                protected void succeeded() {
+                    displayResult(clickedDate);
+                }
+            };
+        }
+    }
+
+    private class MessengerService extends Service<Void> {
+
+        private int month;
+
+        @Override
+        protected Task<Void> createTask() {
+            return new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                    calendar.sendReport(month);
+                    return null;
+                }
+
+                @Override
+                protected void succeeded() {
+                    new MessageWindowImpl("Success", "Report sent").display();
+                }
+            };
+        }
+    }
+
+    private class DatabaseService extends Service<Boolean> {
+
+        private LocalDate clickedDate;
+
+        @Override
+        protected Task<Boolean> createTask() {
+            return new Task<>() {
+                @Override
+                protected Boolean call() throws Exception {
+                    return calendar.getFromDatabase(clickedDate);
+                }
+            };
+        }
+
+        @Override
+        protected void succeeded() {
+            boolean inDatabase = getValue();
+            if (inDatabase) {
+                requestLoadMethod(calendar, clickedDate);
+            } else {
+                getFromAPI(clickedDate);
+            }
         }
     }
 }
