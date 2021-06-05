@@ -120,10 +120,9 @@ public class CalendarController implements ChangeListener<LocalDate> {
 
     /**
      * Creates a new window to ask how the user would like to load the information if it already exists in the database
-     * @param cal the calendar modelled in the view
      * @param date the date picked by the user
      */
-    public void requestLoadMethod(Calendar cal, LocalDate date) {
+    public void requestLoadMethod(LocalDate date) {
         new LoadMethodWindow(date, this).display();
     }
 
@@ -196,7 +195,7 @@ public class CalendarController implements ChangeListener<LocalDate> {
         protected void succeeded() {
             boolean inDatabase = getValue();
             if (inDatabase) {
-                requestLoadMethod(calendar, clickedDate);
+                requestLoadMethod(clickedDate);
             } else {
                 getFromAPI(clickedDate);
             }

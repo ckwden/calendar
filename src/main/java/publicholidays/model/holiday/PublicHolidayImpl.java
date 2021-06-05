@@ -28,8 +28,7 @@ public class PublicHolidayImpl implements PublicHoliday {
     public Holiday getHoliday(LocalDate date) {
         String response = getData(url, key, countryCode, date.getDayOfMonth(), date.getMonth().getValue(),
                 date.getYear());
-        Holiday hol = JsonManager.getHoliday(response);
-        return hol;
+        return JsonManager.getHoliday(response);
     }
 
     @Override
