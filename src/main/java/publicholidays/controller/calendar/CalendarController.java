@@ -127,6 +127,9 @@ public class CalendarController implements ChangeListener<LocalDate> {
         new LoadMethodWindow(date, this).display();
     }
 
+    /**
+     * Creates a new Task allowing for calls to the Holiday API to run on a separate thread to the GUI
+     */
     private class HolidayService extends Service<Void> {
 
         private LocalDate clickedDate;
@@ -148,6 +151,9 @@ public class CalendarController implements ChangeListener<LocalDate> {
         }
     }
 
+    /**
+     * Creates a new Task allowing for reports sent via Twilio to be run on a separate thread to the GUI
+     */
     private class MessengerService extends Service<Void> {
 
         private int month;
@@ -169,6 +175,9 @@ public class CalendarController implements ChangeListener<LocalDate> {
         }
     }
 
+    /**
+     * Creates a new Task allowing for database caching to be done on a separate thread to the GUI
+     */
     private class DatabaseService extends Service<Boolean> {
 
         private LocalDate clickedDate;

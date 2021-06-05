@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="holidays" uuid="7a8dab82-2f5c-4505-86cf-d20b868d5393">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\Catherine Den\Documents\UNI\YEAR3\SOFT3202\Assignments\Holidays-Twilio\src\main\resources\holidays.db</jdbc-url>
+    </data-source>
+  </component>
+</project>

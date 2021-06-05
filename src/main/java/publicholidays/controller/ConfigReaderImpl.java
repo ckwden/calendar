@@ -20,6 +20,10 @@ public class ConfigReaderImpl implements ConfigReader {
         this.obj = getConfigDetails();
     }
 
+    /**
+     * Retrieves the required user data for configuration of the application
+     * @return A JSONObject storing the user configuration data
+     */
     private JSONObject getConfigDetails() {
         JSONParser parser = new JSONParser();
         JSONObject obj = null;
