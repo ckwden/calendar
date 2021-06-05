@@ -1,24 +1,36 @@
 package publicholidays.model.holiday;
 
 import java.time.LocalDate;
+import java.util.Random;
 
 /**
  * Implements the PublicHoliday interface as a dummy
  */
 public class PublicHolidayDummy implements PublicHoliday {
 
+    private String countryCode;
+
+    /**
+     * Returns a holiday based on a random number generated to simulate holidays/not holidays
+     * @param date the date used for the query
+     * @return a dummy Holiday object if the number generated is 0, null if it is 1
+     */
     @Override
     public Holiday getHoliday(LocalDate date) {
-        return new HolidayImpl("fake", date.getYear(), date.getMonthValue(), date.getDayOfMonth());
+        int num = new Random().nextInt(2);
+        if (num == 0) {
+            return new HolidayImpl("fake", date.getYear(), date.getMonthValue(), date.getDayOfMonth());
+        }
+        return null;
     }
 
     @Override
     public void setCountryCode(String countryCode) {
-
+        this.countryCode = countryCode;
     }
 
     @Override
     public String getCountryCode() {
-        return "AU";
+        return this.countryCode;
     }
 }
