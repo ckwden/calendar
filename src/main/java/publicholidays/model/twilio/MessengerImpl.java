@@ -67,7 +67,6 @@ public class MessengerImpl implements Messenger {
                 response.append(line);
             }
             reader.close();
-            System.out.println(response);
             http.disconnect();
         } catch (MalformedURLException e) {
             System.out.println("Invalid URL");
