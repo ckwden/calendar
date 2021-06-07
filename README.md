@@ -22,8 +22,9 @@ the "twilio" object contains fields for the user's sid, token, and the numbers f
 messages. These fields should be changed for the user's own usage.
 
 ## Database
-There is a .sql file in the 'resources' folder, which should be run on the first run of the application 
-in the command line as follows: 'sqlite3 < holidays.sql'. This will create the database to be used.
+There is a .sql file in the 'src/main/resources' folder, which should be run on the first run of the application.
+This should be executed on a file named 'holidaysDB.sqlite'.
+
 
 ## Level of Features Implemented
 I have implemented the required features for distinction. 
