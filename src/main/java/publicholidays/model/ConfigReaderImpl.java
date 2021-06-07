@@ -38,30 +38,55 @@ public class ConfigReaderImpl implements ConfigReader {
 
     @Override
     public String getHolidayKey() {
-        return (String) obj.get("holidayKey");
+        String key = (String) obj.get("holidayKey");
+        if (key == null) {
+            System.out.println("Please configure your key for the Holiday API");
+            System.exit(0);
+        }
+        return key;
     }
 
     @Override
     public String getTwilioSID() {
         JSONObject twilioObj = (JSONObject) obj.get("twilio");
-        return (String) twilioObj.get("sid");
+        String sid = (String) twilioObj.get("sid");
+        if (sid == null) {
+            System.out.println("Please configure your Twilio SID");
+            System.exit(0);
+        }
+        return sid;
     }
 
     @Override
     public String getTwilioToken() {
         JSONObject twilioObj = (JSONObject) obj.get("twilio");
-        return (String) twilioObj.get("token");
+        String token = (String) twilioObj.get("token");
+        if (token == null) {
+            System.out.println("Please configure your Twilio token");
+            System.exit(0);
+        }
+        return token;
     }
 
     @Override
     public String getTwilioNumberTo() {
         JSONObject twilioObj = (JSONObject) obj.get("twilio");
-        return (String) twilioObj.get("numberTo");
+        String number = (String) twilioObj.get("numberTo");
+        if (number == null || number.isEmpty()) {
+            System.out.println("Please configure a number to send the report to");
+            System.exit(0);
+        }
+        return number;
     }
 
     @Override
     public String getTwilioNumberFrom() {
         JSONObject twilioObj = (JSONObject) obj.get("twilio");
-        return (String) twilioObj.get("numberFrom");
+        String number = (String) twilioObj.get("numberFrom");
+        if (number == null || number.isEmpty()) {
+            System.out.println("Please configure a number to send the report from");
+            System.exit(0);
+        }
+        return number;
     }
 }
