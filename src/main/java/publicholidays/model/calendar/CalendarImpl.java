@@ -53,7 +53,11 @@ public class CalendarImpl implements Calendar {
 
     @Override
     public void getFromAPI(LocalDate date) {
-        Holiday holiday = input.getHoliday(date);
+        input.makeCall(date.getDayOfMonth(), date.getMonth().getValue(), date.getYear());
+    }
+
+    @Override
+    public void determineHoliday(LocalDate date, Holiday holiday) {
         if (holiday == null) {
             if (!notHolidays.contains(date)) {
                 notHolidays.add(date);
@@ -68,11 +72,6 @@ public class CalendarImpl implements Calendar {
             }
             db.commitHoliday(date, holiday.getName(), input.getCountryCode());
         }
-    }
-
-    @Override
-    public void determineHoliday(LocalDate now, Holiday holiday) {
-
     }
 
     @Override

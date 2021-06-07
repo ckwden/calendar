@@ -18,5 +18,7 @@ public interface PublicHoliday {
 
     String getCountryCode();
 
+    String getResponse();
+
     void makeCall(int dayOfMonth, int value, int year);
 }

@@ -38,4 +38,9 @@ public class PublicHolidayDummy implements PublicHoliday {
     public void makeCall(int dayOfMonth, int value, int year) {
 
     }
+
+    @Override
+    public String getResponse() {
+        return null;
+    }
 }

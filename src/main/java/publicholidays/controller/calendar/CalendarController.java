@@ -145,7 +145,14 @@ public class CalendarController implements ChangeListener<LocalDate> {
 
                 @Override
                 protected void succeeded() {
-                    displayResult(clickedDate);
+                    String response = calendar.getPublicHoliday().getResponse();
+                    if (response.contains("error")) {
+                        String message = JsonManager.getHolidayErrorMessage(response);
+                        new MessageWindowImpl("Error", message).display();
+                    } else {
+                        calendar.determineHoliday(clickedDate, calendar.getPublicHoliday().getHoliday(clickedDate));
+                        displayResult(clickedDate);
+                    }
                 }
             };
         }
