@@ -25,7 +25,7 @@ public class HolidaysApp extends Application {
             CalendarMaker maker = new CalendarMaker(new ConfigReaderImpl("src/main/resources/config.json"));
             Calendar calendar = maker.makeCalendar(params.get(0),
                     params.get(1),
-                    "src/main/resources/holidaysDB.db");
+                    "src/main/resources/holidaysDB.sqlite");
             SecondaryWindow country = new CountryInputImpl(primaryStage, 300, 100, calendar);
             country.display();
             primaryStage.show();
