@@ -31,7 +31,7 @@ public class MessengerImpl implements Messenger {
 
     @Override
     public void sendReport(String report) {
-        String body = report.replaceAll(" ", "%20");
+        String body = report.replaceAll(" ", "%20").replaceAll("\n", "%0A");
         BufferedReader reader;
         StringBuilder response = new StringBuilder();
         try {
@@ -68,6 +68,7 @@ public class MessengerImpl implements Messenger {
             }
             reader.close();
             http.disconnect();
+            System.out.println(response);
         } catch (MalformedURLException e) {
             System.out.println("Invalid URL");
         } catch (IOException e) {
