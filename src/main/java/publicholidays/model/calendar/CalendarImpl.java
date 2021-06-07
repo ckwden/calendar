@@ -52,7 +52,7 @@ public class CalendarImpl implements Calendar {
     }
 
     @Override
-    public boolean getFromAPI(LocalDate date) {
+    public void getFromAPI(LocalDate date) {
         Holiday holiday = input.getHoliday(date);
         if (holiday == null) {
             if (!notHolidays.contains(date)) {
@@ -60,7 +60,6 @@ public class CalendarImpl implements Calendar {
             }
             holidays.remove(date);
             db.commitHoliday(date, "", input.getCountryCode());
-            return false;
         } else {
             if (holidays.containsKey(date)) {
                 holidays.replace(date, holiday);
@@ -68,8 +67,12 @@ public class CalendarImpl implements Calendar {
                 holidays.put(date, holiday);
             }
             db.commitHoliday(date, holiday.getName(), input.getCountryCode());
-            return true;
         }
+    }
+
+    @Override
+    public void determineHoliday(LocalDate now, Holiday holiday) {
+
     }
 
     @Override
@@ -94,6 +97,11 @@ public class CalendarImpl implements Calendar {
     @Override
     public Messenger getMessenger() {
         return this.output;
+    }
+
+    @Override
+    public PublicHoliday getPublicHoliday() {
+        return this.input;
     }
 
     /**

@@ -21,7 +21,7 @@ public class ConfigReaderTest {
         assertEquals("randomkey", reader.getHolidayKey());
         assertEquals("randomsid", reader.getTwilioSID());
         assertEquals("randomtoken", reader.getTwilioToken());
-        assertEquals("randomnumberto", reader.getTwilioNumberTo());
-        assertEquals("randomnumberfrom", reader.getTwilioNumberFrom());
+        assertEquals("+123242344", reader.getTwilioNumberTo());
+        assertEquals("+123242345", reader.getTwilioNumberFrom());
     }
 }

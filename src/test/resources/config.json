@@ -3,7 +3,7 @@
   "twilio": {
     "sid": "randomsid",
     "token": "randomtoken",
-    "numberTo": "randomnumberto",
-    "numberFrom": "randomnumberfrom"
+    "numberTo": "+123242344",
+    "numberFrom": "+123242345"
   }
 }

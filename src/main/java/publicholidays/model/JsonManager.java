@@ -8,7 +8,7 @@ import publicholidays.model.holiday.HolidayImpl;
 import org.json.simple.parser.ParseException;
 
 /**
- * Handles the response in JSON foramt from the Holiday API call
+ * Handles the response in JSON foramt from the APIs
  */
 public class JsonManager {
 

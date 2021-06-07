@@ -1,6 +1,7 @@
 package publicholidays.model.calendar;
 
 import publicholidays.model.holiday.Holiday;
+import publicholidays.model.holiday.PublicHoliday;
 import publicholidays.model.twilio.Messenger;
 
 import java.time.LocalDate;
@@ -41,7 +42,7 @@ public interface Calendar {
      * @param date the date that is queried to the Holiday API
      * @return true if the date is a public holiday, false if not
      */
-    boolean getFromAPI(LocalDate date);
+    void getFromAPI(LocalDate date);
 
     /**
      * Triggers the call to the database to retrieve the record, if it exists, about the given date
@@ -51,4 +52,8 @@ public interface Calendar {
     boolean getFromDatabase(LocalDate date);
 
     Messenger getMessenger();
+
+    PublicHoliday getPublicHoliday();
+
+    void determineHoliday(LocalDate now, Holiday holiday);
 }

@@ -41,28 +41,7 @@ public class CalendarTest {
     public void testGetFromAPI() {
         LocalDate date = LocalDate.now();
         calendar.getFromAPI(date);
-        verify(ph).getHoliday(date);
-    }
-
-    @Test
-    public void testGetFromAPIRepeated() {
-        LocalDate date = LocalDate.of(2021, 11, 12);
-        Holiday holiday = new HolidayImpl("Random", 2021, 11, 12);
-        when(ph.getHoliday(date)).thenReturn(holiday);
-        LocalDate newDate = LocalDate.of(2021, 11, 13);
-        when(ph.getHoliday(newDate)).thenReturn(null);
-
-        calendar.getFromAPI(date);
-        assertEquals(1, calendar.getHolidays().size());
-        assertEquals(0, calendar.getNotHolidays().size());
-        calendar.getFromAPI(newDate);
-        assertEquals(1, calendar.getNotHolidays().size());
-        assertEquals(1, calendar.getNotHolidays().size());
-
-        calendar.getFromAPI(date);
-        assertEquals(1, calendar.getHolidays().size());
-        calendar.getFromAPI(newDate);
-        assertEquals(1, calendar.getNotHolidays().size());
+        verify(ph).makeCall(date.getDayOfMonth(), date.getMonth().getValue(), date.getYear());
     }
 
     @Test
@@ -75,37 +54,15 @@ public class CalendarTest {
     }
 
     @Test
-    public void testGetFromDatabaseRepeated() {
-        LocalDate date = LocalDate.of(2021, 12, 1);
-        Holiday holiday = new HolidayImpl("Holiday", 2021, 1, 1);
-        when(ph.getCountryCode()).thenReturn("AU");
-        when(db.getHoliday(date, ph.getCountryCode())).thenReturn(holiday);
-        LocalDate newDate = LocalDate.of(2021, 12, 12);
-        Holiday newHoliday = new HolidayImpl("", 2021, 1,1);
-        when(db.getHoliday(newDate, ph.getCountryCode())).thenReturn(newHoliday);
-
-        calendar.getFromDatabase(date);
-        assertEquals(1, calendar.getHolidays().size());
-        calendar.getFromDatabase(newDate);
-        assertEquals(1, calendar.getHolidays().size());
-        assertEquals(1, calendar.getNotHolidays().size());
-
-        calendar.getFromDatabase(newDate);
-        assertEquals(1, calendar.getNotHolidays().size());
-        calendar.getFromDatabase(date);
-        assertEquals(1, calendar.getHolidays().size());
-    }
-
-    @Test
     public void testSendReportsWithHolidays() {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Holiday holiday = new HolidayImpl("Random", 2021, 1, 1);
         when(ph.getCountryCode()).thenReturn("AU");
         when(ph.getHoliday(date)).thenReturn(holiday);
 
-        boolean res = calendar.getFromAPI(date);
-        assertTrue(res);
+        calendar.determineHoliday(date, ph.getHoliday(date));
         assertEquals(1, calendar.getHolidays().values().size());
+        verify(db).commitHoliday(date, holiday.getName(), ph.getCountryCode());
 
         calendar.sendReport(1);
         verify(twilio).sendReport("Known holidays in " + Month.of(1).name() + ":\n" + holiday.getName());
@@ -113,9 +70,10 @@ public class CalendarTest {
         LocalDate newDate = LocalDate.of(2021, 1, 26);
         Holiday newHoliday = new HolidayImpl("Australia Day", 2021, 1, 26);
         when(db.getHoliday(newDate, ph.getCountryCode())).thenReturn(newHoliday);
-        res = calendar.getFromDatabase(newDate);
+        boolean res = calendar.getFromDatabase(newDate);
         assertTrue(res);
         assertEquals(2, calendar.getHolidays().values().size());
+        verify(db, times(0)).commitHoliday(date, newHoliday.getName(), ph.getCountryCode());
 
         calendar.sendReport(1);
         String report = "Known holidays in " + Month.of(1).name() + ":\n" + newHoliday.getName() + "\n" +
@@ -130,7 +88,9 @@ public class CalendarTest {
         when(ph.getCountryCode()).thenReturn("AU");
         when(ph.getHoliday(date)).thenReturn(holiday);
         calendar.getFromAPI(date);
+        verify(ph).makeCall(date.getDayOfMonth(), date.getMonth().getValue(), date.getYear());
 
+        calendar.determineHoliday(date, ph.getHoliday(date));
         LocalDate newDate = LocalDate.of(2021, 2, 2);
         Holiday newHoliday = new HolidayImpl("Holiday", 2021, 2, 2);
         when(db.getHoliday(newDate, ph.getCountryCode())).thenReturn(newHoliday);
@@ -138,7 +98,7 @@ public class CalendarTest {
 
         LocalDate now = LocalDate.now();
         when(ph.getHoliday(now)).thenReturn(null);
-        calendar.getFromAPI(now);
+        calendar.determineHoliday(now, ph.getHoliday(now));
 
         assertEquals(1, calendar.getNotHolidays().size());
         assertEquals(now, calendar.getNotHolidays().get(0));
@@ -156,6 +116,4 @@ public class CalendarTest {
         calendar.setCountry("AU");
         verify(ph).setCountryCode("AU");
     }
-
 }
-

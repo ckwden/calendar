@@ -33,4 +33,9 @@ public class PublicHolidayDummy implements PublicHoliday {
     public String getCountryCode() {
         return this.countryCode;
     }
+
+    @Override
+    public void makeCall(int dayOfMonth, int value, int year) {
+
+    }
 }

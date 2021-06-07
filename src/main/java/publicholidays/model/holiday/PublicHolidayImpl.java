@@ -41,6 +41,11 @@ public class PublicHolidayImpl implements PublicHoliday {
         return this.countryCode;
     }
 
+    @Override
+    public void makeCall(int dayOfMonth, int value, int year) {
+
+    }
+
     /**
      * Sends the request to the Holiday API for a given date
      * @param link the API url
