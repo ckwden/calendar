@@ -91,6 +91,11 @@ public class CalendarImpl implements Calendar {
         }
     }
 
+    @Override
+    public Messenger getMessenger() {
+        return this.output;
+    }
+
     /**
      * Creates the report data to send for the output API
      * @param month The month of the known public holidays in the report represented as its number in a year

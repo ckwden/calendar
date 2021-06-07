@@ -10,4 +10,6 @@ public interface Messenger {
      * @param report The report to be sent through Twilio SMS
      */
     void sendReport(String report);
+
+    String getResponse();
 }

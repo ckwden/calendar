@@ -1,6 +1,8 @@
 package publicholidays.model.twilio;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -18,6 +20,7 @@ public class MessengerImpl implements Messenger {
     private final String numberTo;
     private final String numberFrom;
     private final String url;
+    private String response;
 
     public MessengerImpl(String sid, String token, String numberTo, String numberFrom) {
         this.sid = sid;
@@ -25,11 +28,14 @@ public class MessengerImpl implements Messenger {
         this.numberTo = numberTo;
         this.numberFrom = numberFrom;
         this.url = "https://api.twilio.com/2010-04-01/";
+        this.response = null;
     }
 
     @Override
     public void sendReport(String report) {
         String body = report.replaceAll(" ", "%20").replaceAll("\n", "%0A");
+        BufferedReader reader;
+        StringBuilder response = new StringBuilder();
         try {
             URL url = new URL(this.url + "Accounts/" + this.sid + "/Messages.json?to=" + this.numberTo +
                     "&from=" + this.numberFrom + "&body=" + body);
@@ -50,11 +56,30 @@ public class MessengerImpl implements Messenger {
             byte[] encodedToSend = toSend.getBytes(StandardCharsets.UTF_8);
             OutputStream os = http.getOutputStream();
             os.write(encodedToSend);
+
+            String line;
+            int status = http.getResponseCode();
+            if (status > 299) {
+                reader = new BufferedReader(new InputStreamReader(http.getErrorStream()));
+            } else {
+                reader = new BufferedReader(new InputStreamReader(http.getInputStream()));
+            }
+            while((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+            reader.close();
+            this.response = response.toString();
+
             http.disconnect();
         } catch (MalformedURLException e) {
             System.out.println("Invalid URL");
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String getResponse() {
+        return this.response;
     }
 }

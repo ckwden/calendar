@@ -80,7 +80,7 @@ public class ConfigReaderImpl implements ConfigReader {
             System.exit(0);
         }
         try {
-            Integer.parseInt(number.substring(1));
+            Long.parseLong(number.substring(1));
         } catch (Exception e) {
             System.out.println("Please ensure that the number to send the report to are composed only of digits");
             System.exit(0);
@@ -100,7 +100,7 @@ public class ConfigReaderImpl implements ConfigReader {
             System.exit(0);
         }
         try {
-            Integer.parseInt(number.substring(1));
+            Long.parseLong(number.substring(1));
         } catch (Exception e) {
             System.out.println("Please ensure that the number to send the report from are composed only of digits");
             System.exit(0);

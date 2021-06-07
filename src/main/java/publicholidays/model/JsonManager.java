@@ -12,8 +12,9 @@ import org.json.simple.parser.ParseException;
  */
 public class JsonManager {
 
+    private static JSONParser parser = new JSONParser();
+
     public static Holiday getHoliday(String response) {
-        JSONParser parser = new JSONParser();
         HolidayImpl holiday = null;
         try {
             JSONArray holidays = (JSONArray) parser.parse(response);
@@ -32,5 +33,19 @@ public class JsonManager {
             System.out.println("Wrong json format");
         }
         return holiday;
+    }
+
+    public static String getMessengerMessage(String response) {
+        if (response == null) {
+            return null;
+        }
+        String message = null;
+        try {
+            JSONObject obj = (JSONObject) parser.parse(response);
+            message = (String) obj.get("message");
+        } catch (ParseException ignored) {
+
+        }
+        return message;
     }
 }

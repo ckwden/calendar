@@ -2,6 +2,7 @@ package publicholidays.controller.calendar;
 
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+import publicholidays.model.JsonManager;
 import publicholidays.model.calendar.Calendar;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -168,7 +169,12 @@ public class CalendarController implements ChangeListener<LocalDate> {
 
                 @Override
                 protected void succeeded() {
-                    new MessageWindowImpl("Success", "Report sent").display();
+                    String message = JsonManager.getMessengerMessage(calendar.getMessenger().getResponse());
+                    if (message == null) {
+                        new MessageWindowImpl("Success", "Report sent").display();
+                    } else {
+                        new MessageWindowImpl("Error", message).display();
+                    }
                 }
             };
         }

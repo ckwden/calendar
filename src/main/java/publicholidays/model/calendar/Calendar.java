@@ -1,6 +1,7 @@
 package publicholidays.model.calendar;
 
 import publicholidays.model.holiday.Holiday;
+import publicholidays.model.twilio.Messenger;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -48,4 +49,6 @@ public interface Calendar {
      * @return true the record matching the date exists in the database, false if not
      */
     boolean getFromDatabase(LocalDate date);
+
+    Messenger getMessenger();
 }

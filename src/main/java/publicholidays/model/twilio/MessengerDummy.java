@@ -18,4 +18,9 @@ public class MessengerDummy implements Messenger {
         System.out.println(numberFrom + " sends report to " + numberTo);
         System.out.println(report);
     }
+
+    @Override
+    public String getResponse() {
+        return null;
+    }
 }
