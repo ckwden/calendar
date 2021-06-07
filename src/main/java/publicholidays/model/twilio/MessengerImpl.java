@@ -32,12 +32,9 @@ public class MessengerImpl implements Messenger {
     @Override
     public void sendReport(String report) {
         String body = report.replaceAll(" ", "%20").replaceAll("\n", "%0A");
-        BufferedReader reader;
-        StringBuilder response = new StringBuilder();
         try {
             URL url = new URL(this.url + "Accounts/" + this.sid + "/Messages.json?to=" + this.numberTo +
                     "&from=" + this.numberFrom + "&body=" + body);
-            System.out.println(url.toString());
             HttpURLConnection http = (HttpURLConnection) url.openConnection();
             http.setRequestMethod("POST");
             http.setDoOutput(true);
@@ -55,20 +52,7 @@ public class MessengerImpl implements Messenger {
             byte[] encodedToSend = toSend.getBytes(StandardCharsets.UTF_8);
             OutputStream os = http.getOutputStream();
             os.write(encodedToSend);
-
-            String line;
-            int status = http.getResponseCode();
-            if (status > 299) {
-                reader = new BufferedReader(new InputStreamReader(http.getErrorStream()));
-            } else {
-                reader = new BufferedReader(new InputStreamReader(http.getInputStream()));
-            }
-            while((line = reader.readLine()) != null) {
-                response.append(line);
-            }
-            reader.close();
             http.disconnect();
-            System.out.println(response);
         } catch (MalformedURLException e) {
             System.out.println("Invalid URL");
         } catch (IOException e) {
