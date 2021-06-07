@@ -2,8 +2,8 @@ package publicholidays;
 
 import org.junit.Before;
 import org.junit.Test;
-import publicholidays.controller.ConfigReader;
-import publicholidays.controller.ConfigReaderImpl;
+import publicholidays.model.ConfigReader;
+import publicholidays.model.ConfigReaderImpl;
 
 import static org.junit.Assert.assertEquals;
 

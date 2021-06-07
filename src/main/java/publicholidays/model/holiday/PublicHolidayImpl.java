@@ -1,6 +1,6 @@
 package publicholidays.model.holiday;
 
-import publicholidays.controller.JsonManager;
+import publicholidays.model.JsonManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;

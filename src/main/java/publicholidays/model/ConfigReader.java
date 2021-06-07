@@ -1,4 +1,4 @@
-package publicholidays.controller;
+package publicholidays.model;
 
 /**
  * Retrieves the required data in a config file for the application

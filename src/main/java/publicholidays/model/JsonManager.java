@@ -1,4 +1,4 @@
-package publicholidays.controller;
+package publicholidays.model;
 
 import org.json.simple.JSONArray;
 import publicholidays.model.holiday.Holiday;

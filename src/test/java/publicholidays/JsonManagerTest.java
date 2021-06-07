@@ -1,7 +1,7 @@
 package publicholidays;
 
 import org.junit.Test;
-import publicholidays.controller.JsonManager;
+import publicholidays.model.JsonManager;
 import publicholidays.model.holiday.Holiday;
 
 import static org.junit.Assert.assertEquals;

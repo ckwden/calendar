@@ -1,6 +1,6 @@
 package publicholidays;
 
-import publicholidays.controller.ConfigReaderImpl;
+import publicholidays.model.ConfigReaderImpl;
 import publicholidays.model.calendar.Calendar;
 import publicholidays.view.CountryInputImpl;
 import javafx.application.Application;

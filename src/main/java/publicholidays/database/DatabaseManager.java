@@ -19,5 +19,4 @@ public interface DatabaseManager {
     Holiday getHoliday(LocalDate date, String countryCode);
 
     void commitHoliday(LocalDate date, String name, String countryCode);
-
 }

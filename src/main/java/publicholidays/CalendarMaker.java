@@ -1,7 +1,6 @@
 package publicholidays;
 
-import publicholidays.controller.ConfigReader;
-import publicholidays.database.DatabaseManager;
+import publicholidays.model.ConfigReader;
 import publicholidays.database.DatabaseManagerImpl;
 import publicholidays.model.calendar.Calendar;
 import publicholidays.model.calendar.CalendarImpl;
