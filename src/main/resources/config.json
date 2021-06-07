@@ -1,9 +1,9 @@
 {
-  "holidayKey" : "5b590d99a8724f0c830346fe88d29845",
+  "holidayKey" : "",
   "twilio": {
-    "sid": "AC4bdf2b995f3c1177d38a8326c2bb74a2",
-    "token": "a9107f5db992797d70d694c2df8be11d",
-    "numberTo": "+61410883083",
-    "numberFrom": "+16364925103"
+    "sid": "",
+    "token": "",
+    "numberTo": "",
+    "numberFrom": ""
   }
 }

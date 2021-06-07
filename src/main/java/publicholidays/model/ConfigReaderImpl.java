@@ -39,7 +39,7 @@ public class ConfigReaderImpl implements ConfigReader {
     @Override
     public String getHolidayKey() {
         String key = (String) obj.get("holidayKey");
-        if (key == null) {
+        if (key == null || key.isEmpty()) {
             System.out.println("Please configure your key for the Holiday API");
             System.exit(0);
         }
@@ -50,7 +50,7 @@ public class ConfigReaderImpl implements ConfigReader {
     public String getTwilioSID() {
         JSONObject twilioObj = (JSONObject) obj.get("twilio");
         String sid = (String) twilioObj.get("sid");
-        if (sid == null) {
+        if (sid == null || sid.isEmpty()) {
             System.out.println("Please configure your Twilio SID");
             System.exit(0);
         }
@@ -61,7 +61,7 @@ public class ConfigReaderImpl implements ConfigReader {
     public String getTwilioToken() {
         JSONObject twilioObj = (JSONObject) obj.get("twilio");
         String token = (String) twilioObj.get("token");
-        if (token == null) {
+        if (token == null || token.isEmpty()) {
             System.out.println("Please configure your Twilio token");
             System.exit(0);
         }
@@ -75,6 +75,15 @@ public class ConfigReaderImpl implements ConfigReader {
         if (number == null || number.isEmpty()) {
             System.out.println("Please configure a number to send the report to");
             System.exit(0);
+        } else if (!(number.charAt(0) == '+')) {
+            System.out.println("The number to send the report to is not in the correct format");
+            System.exit(0);
+        }
+        try {
+            Integer.parseInt(number.substring(1));
+        } catch (Exception e) {
+            System.out.println("Please ensure that the number to send the report to are composed only of digits");
+            System.exit(0);
         }
         return number;
     }
@@ -85,6 +94,15 @@ public class ConfigReaderImpl implements ConfigReader {
         String number = (String) twilioObj.get("numberFrom");
         if (number == null || number.isEmpty()) {
             System.out.println("Please configure a number to send the report from");
+            System.exit(0);
+        } else if (!(number.charAt(0) == '+')) {
+            System.out.println("The number to send the report from is not in the correct format");
+            System.exit(0);
+        }
+        try {
+            Integer.parseInt(number.substring(1));
+        } catch (Exception e) {
+            System.out.println("Please ensure that the number to send the report from are composed only of digits");
             System.exit(0);
         }
         return number;
