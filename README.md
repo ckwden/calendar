@@ -3,11 +3,11 @@
 ## Test Driven Development
 ### Calendar Model working with the APIs
 *RED:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/59012324d1706f4f32f60e00b425ac1be7b009ac  
-*GREEN:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/9749855a22ed4be13834d85ad3362f6c031170f1
+*GREEN:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/9749855a22ed4be13834d85ad3362f6c031170f1  
 *REFACTOR:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/5967d67e2dd5ad60979865676f4dfe916ff27d5a
 
-*RED:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/2057069d6650fe1ea1ce66875abfb33b9dd4df06
-*GREEN:* 
+*RED:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/2057069d6650fe1ea1ce66875abfb33b9dd4df06  
+*GREEN:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/a4a307b93ed80a4136caf13efda4d7e08dda85f9
 
 ### Reading configuration file, and parsing Holiday API response
 *RED:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/6af265685b0c5b375b97e80e9af72c88c20facc5  
