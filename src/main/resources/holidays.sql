@@ -1,5 +1,3 @@
-.open holidaysDB.sqlite
-
 CREATE TABLE IF NOT EXISTS holidays (
     year INTEGER,
     month INTEGER,

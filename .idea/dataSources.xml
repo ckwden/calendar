@@ -7,5 +7,11 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\Catherine Den\Documents\UNI\YEAR3\SOFT3202\Assignments\Holidays-Twilio\src\main\resources\holidays.db</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="holidaysDB" uuid="76a50af3-837b-441f-a2f4-6012c71fcf1d">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\Catherine Den\Documents\UNI\YEAR3\SOFT3202\Assignments\Holidays-Twilio\src\main\resources\holidaysDB.sqlite</jdbc-url>
+    </data-source>
   </component>
 </project>
