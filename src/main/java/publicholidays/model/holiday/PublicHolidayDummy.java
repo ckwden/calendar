@@ -23,6 +23,7 @@ public class PublicHolidayDummy implements PublicHoliday {
         if (num == 0) {
             List<Holiday> holidays = new ArrayList<>();
             holidays.add(new HolidayImpl("fake", date.getYear(), date.getMonthValue(), date.getDayOfMonth()));
+            holidays.add(new HolidayImpl("fake2", date.getYear(), date.getMonthValue(), date.getDayOfMonth()));
             return holidays;
         }
         return null;
@@ -45,6 +46,6 @@ public class PublicHolidayDummy implements PublicHoliday {
 
     @Override
     public String getResponse() {
-        return null;
+        return "Success";
     }
 }
