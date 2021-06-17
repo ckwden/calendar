@@ -60,41 +60,42 @@ public class CalendarImpl implements Calendar {
     }
 
     @Override
-    public void determineHoliday(LocalDate date, List<Holiday> holiday) {
-        if (holiday == null) {
+    public void determineHoliday(LocalDate date, List<Holiday> holidays) {
+        if (holidays == null) {
             if (!notHolidays.contains(date)) {
                 notHolidays.add(date);
             }
-            holidays.remove(date);
+            this.holidays.remove(date);
             db.commitHoliday(date, "", input.getCountryCode());
         } else {
-//            if (holidays.containsKey(date)) {
-//                holidays.replace(date, holiday);
-//            } else {
-//                holidays.put(date, holiday);
-//            }
-//            db.commitHoliday(date, holiday.getName(), input.getCountryCode());
+            if (this.holidays.containsKey(date)) {
+                this.holidays.replace(date, holidays);
+            } else {
+                this.holidays.put(date, holidays);
+            }
+            for (Holiday holiday : holidays) {
+                db.commitHoliday(date, holiday.getName(), input.getCountryCode());
+            }
         }
     }
 
     @Override
     public boolean getFromDatabase(LocalDate date) {
-//        Holiday holiday = db.getHoliday(date, input.getCountryCode());
-//        if (holiday == null) {
-//            return false;
-//        } else {
-//            if (holiday.getName().equals("")) {
-//                if (!notHolidays.contains(date)) {
-//                    notHolidays.add(date);
-//                }
-//            } else {
-//                if (!holidays.containsKey(date)) {
-//                    holidays.put(date, holiday);
-//                }
-//            }
-//            return true;
-//        }
-        return false;
+        List<Holiday> holidays = db.getHoliday(date, input.getCountryCode());
+        if (holidays == null || holidays.size() == 0) {
+            return false;
+        } else {
+            if (holidays.get(0).getName().equals("")) {
+                if (!notHolidays.contains(date)) {
+                    notHolidays.add(date);
+                }
+            } else {
+                if (!this.holidays.containsKey(date)) {
+                    this.holidays.put(date, holidays);
+                }
+            }
+            return true;
+        }
     }
 
     @Override

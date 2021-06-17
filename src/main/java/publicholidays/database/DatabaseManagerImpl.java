@@ -5,6 +5,7 @@ import publicholidays.model.holiday.HolidayImpl;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,7 +37,7 @@ public class DatabaseManagerImpl implements DatabaseManager {
         int year = date.getYear();
         int month = date.getMonth().getValue();
         int day = date.getDayOfMonth();
-        Holiday holiday = null;
+        List<Holiday> holidays = new ArrayList<>();
         try {
             String query = String.format("SELECT * FROM holidays WHERE holidays.year=%s AND holidays.month=%s " +
                     "AND holidays.day=%s AND holidays.country='%s';", year, month, day, countryCode);
@@ -47,12 +48,12 @@ public class DatabaseManagerImpl implements DatabaseManager {
                 int holidayMonth = record.getInt("month");
                 int holidayDay = record.getInt("day");
                 String name = record.getString("name");
-                holiday = new HolidayImpl(name, holidayYear, holidayMonth, holidayDay);
+                holidays.add(new HolidayImpl(name, holidayYear, holidayMonth, holidayDay));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return null;
+        return holidays;
     }
 
     @Override
