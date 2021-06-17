@@ -58,6 +58,7 @@ public class CalendarTest {
     @Test
     public void testSendReportsWithHolidays() {
         LocalDate date = LocalDate.of(2021, 1, 1);
+        calendar.setThresholdCount(1);
         Holiday holiday = new HolidayImpl("Random", 2021, 1, 1);
         when(ph.getCountryCode()).thenReturn("AU");
         List<Holiday> holidays = new ArrayList<>();
@@ -91,6 +92,7 @@ public class CalendarTest {
     @Test
     public void testHolidaysAndNotHolidays() {
         LocalDate date = LocalDate.of(2021, 1, 1);
+        calendar.setThresholdCount(1);
         Holiday holiday = new HolidayImpl("Random", 2021, 1, 1);
         when(ph.getCountryCode()).thenReturn("AU");
         List<Holiday> holidays = new ArrayList<>();
@@ -124,8 +126,78 @@ public class CalendarTest {
     }
 
     @Test
-    public void testOverThreshold() {
+    public void testOverThresholdOne() {
+        LocalDate date = LocalDate.of(2021, 7, 17);
+        Holiday holiday = new HolidayImpl("Test", 2021, 7, 17);
+        Holiday holiday1 = new HolidayImpl("Test2", 2021, 7, 17);
+        when(ph.getCountryCode()).thenReturn("AU");
+        List<Holiday> holidays = new ArrayList<>();
+        holidays.add(holiday);
+        holidays.add(holiday1);
+        when(ph.getHoliday(date)).thenReturn(holidays);
 
+        calendar.setThresholdCount(1);
+        calendar.determineHoliday(date, ph.getHoliday(date));
+        calendar.sendReport(7);
+        verify(twilio).sendReport("*Known holidays in " + Month.of(7).name() + ":\n" + holiday.getName()
+                + "\n" + holiday1.getName());
+    }
+
+    @Test
+    public void testUnderThresholdFive() {
+        LocalDate date = LocalDate.of(2021, 7, 17);
+        Holiday holiday = new HolidayImpl("Test", 2021, 7, 17);
+        Holiday holiday1 = new HolidayImpl("Test2", 2021, 7, 17);
+        when(ph.getCountryCode()).thenReturn("AU");
+        List<Holiday> holidays = new ArrayList<>();
+        holidays.add(holiday);
+        holidays.add(holiday1);
+        when(ph.getHoliday(date)).thenReturn(holidays);
+
+        calendar.setThresholdCount(5);
+        calendar.determineHoliday(date, ph.getHoliday(date));
+        calendar.sendReport(7);
+        verify(twilio).sendReport("Known holidays in " + Month.of(7).name() + ":\n" + holiday.getName()
+                + "\n" + holiday1.getName());
+    }
+
+    @Test
+    public void testExactlyThresholdFive() {
+        LocalDate date = LocalDate.of(2021, 7, 17);
+        Holiday holiday = new HolidayImpl("Test", 2021, 7, 17);
+        when(ph.getCountryCode()).thenReturn("AU");
+        List<Holiday> holidays = new ArrayList<>();
+        holidays.add(holiday);
+        holidays.add(holiday);
+        holidays.add(holiday);
+        holidays.add(holiday);
+        holidays.add(holiday);
+        when(ph.getHoliday(date)).thenReturn(holidays);
+
+        calendar.setThresholdCount(5);
+        calendar.determineHoliday(date, ph.getHoliday(date));
+        calendar.sendReport(7);
+        verify(twilio).sendReport("Known holidays in JULY:\nTest\nTest\nTest\nTest\nTest");
+    }
+
+    @Test
+    public void testOverThresholdFive() {
+        LocalDate date = LocalDate.of(2021, 7, 17);
+        Holiday holiday = new HolidayImpl("Test", 2021, 7, 17);
+        when(ph.getCountryCode()).thenReturn("AU");
+        List<Holiday> holidays = new ArrayList<>();
+        holidays.add(holiday);
+        holidays.add(holiday);
+        holidays.add(holiday);
+        holidays.add(holiday);
+        holidays.add(holiday);
+        holidays.add(holiday);
+        when(ph.getHoliday(date)).thenReturn(holidays);
+
+        calendar.setThresholdCount(5);
+        calendar.determineHoliday(date, ph.getHoliday(date));
+        calendar.sendReport(7);
+        verify(twilio).sendReport("*Known holidays in JULY:\nTest\nTest\nTest\nTest\nTest\nTest");
     }
 
     @Test
