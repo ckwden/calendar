@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Implements the PublicHoliday interface
@@ -27,7 +28,7 @@ public class PublicHolidayImpl implements PublicHoliday {
     }
 
     @Override
-    public Holiday getHoliday(LocalDate date) {
+    public List<Holiday> getHoliday(LocalDate date) {
         return JsonManager.getHoliday(this.response);
     }
 

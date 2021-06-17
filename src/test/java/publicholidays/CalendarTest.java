@@ -12,6 +12,8 @@ import publicholidays.model.twilio.Messenger;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -58,7 +60,9 @@ public class CalendarTest {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Holiday holiday = new HolidayImpl("Random", 2021, 1, 1);
         when(ph.getCountryCode()).thenReturn("AU");
-        when(ph.getHoliday(date)).thenReturn(holiday);
+        List<Holiday> holidays = new ArrayList<>();
+        holidays.add(holiday);
+        when(ph.getHoliday(date)).thenReturn(holidays);
 
         calendar.determineHoliday(date, ph.getHoliday(date));
         assertEquals(1, calendar.getHolidays().values().size());
@@ -86,7 +90,9 @@ public class CalendarTest {
         LocalDate date = LocalDate.of(2021, 1, 1);
         Holiday holiday = new HolidayImpl("Random", 2021, 1, 1);
         when(ph.getCountryCode()).thenReturn("AU");
-        when(ph.getHoliday(date)).thenReturn(holiday);
+        List<Holiday> holidays = new ArrayList<>();
+        holidays.add(holiday);
+        when(ph.getHoliday(date)).thenReturn(holidays);
         calendar.getFromAPI(date);
         verify(ph).makeCall(date.getDayOfMonth(), date.getMonth().getValue(), date.getYear());
 
@@ -109,6 +115,11 @@ public class CalendarTest {
 
         calendar.sendReport(2);
         verify(twilio).sendReport("Known holidays in " + Month.of(2).name() + ":\n" + newHoliday.getName());
+    }
+
+    @Test
+    public void testOverThreshold() {
+
     }
 
     @Test

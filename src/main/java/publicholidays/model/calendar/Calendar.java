@@ -55,5 +55,7 @@ public interface Calendar {
 
     PublicHoliday getPublicHoliday();
 
-    void determineHoliday(LocalDate now, Holiday holiday);
+    void determineHoliday(LocalDate now, List<Holiday> holiday);
+
+    void setThresholdCount(int count);
 }

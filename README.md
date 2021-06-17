@@ -27,8 +27,9 @@ messages. These fields should be changed for the user's own usage.
 
 ## Database
 There is a .sql file in the 'src/main/resources' folder, which should be run on the first run of the application.
-This should be executed on a file named 'holidaysDB.sqlite'.
-
+This should be executed on a file named 'holidaysDB.sqlite'.  
+**NOTE:** The SQL script used for the extension exam work version differs from the one in the most recent snapshot
+used for the pre-work version.
 
 ## Level of Features Implemented
 I have implemented the required features for distinction. 

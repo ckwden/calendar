@@ -1,6 +1,7 @@
 package publicholidays.model.holiday;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Models the Holiday API
@@ -12,7 +13,7 @@ public interface PublicHoliday {
      * @param date the date used for the query
      * @return A Holiday object modelling the response from the API, null if the date is not a public holiday
      */
-    Holiday getHoliday(LocalDate date);
+    List<Holiday> getHoliday(LocalDate date);
 
     void setCountryCode(String countryCode);
 

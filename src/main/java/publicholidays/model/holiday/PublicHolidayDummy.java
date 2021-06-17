@@ -1,6 +1,8 @@
 package publicholidays.model.holiday;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -16,10 +18,12 @@ public class PublicHolidayDummy implements PublicHoliday {
      * @return a dummy Holiday object if the number generated is 0, null if it is 1
      */
     @Override
-    public Holiday getHoliday(LocalDate date) {
+    public List<Holiday> getHoliday(LocalDate date) {
         int num = new Random().nextInt(2);
         if (num == 0) {
-            return new HolidayImpl("fake", date.getYear(), date.getMonthValue(), date.getDayOfMonth());
+            List<Holiday> holidays = new ArrayList<>();
+            holidays.add(new HolidayImpl("fake", date.getYear(), date.getMonthValue(), date.getDayOfMonth()));
+            return holidays;
         }
         return null;
     }

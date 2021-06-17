@@ -52,12 +52,15 @@ public class CalendarImpl implements Calendar {
     }
 
     @Override
+    public void setThresholdCount(int count) {}
+
+    @Override
     public void getFromAPI(LocalDate date) {
         input.makeCall(date.getDayOfMonth(), date.getMonth().getValue(), date.getYear());
     }
 
     @Override
-    public void determineHoliday(LocalDate date, Holiday holiday) {
+    public void determineHoliday(LocalDate date, List<Holiday> holiday) {
         if (holiday == null) {
             if (!notHolidays.contains(date)) {
                 notHolidays.add(date);
@@ -65,12 +68,12 @@ public class CalendarImpl implements Calendar {
             holidays.remove(date);
             db.commitHoliday(date, "", input.getCountryCode());
         } else {
-            if (holidays.containsKey(date)) {
-                holidays.replace(date, holiday);
-            } else {
-                holidays.put(date, holiday);
-            }
-            db.commitHoliday(date, holiday.getName(), input.getCountryCode());
+//            if (holidays.containsKey(date)) {
+//                holidays.replace(date, holiday);
+//            } else {
+//                holidays.put(date, holiday);
+//            }
+//            db.commitHoliday(date, holiday.getName(), input.getCountryCode());
         }
     }
 

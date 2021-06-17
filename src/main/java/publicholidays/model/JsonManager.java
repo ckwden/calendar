@@ -7,6 +7,8 @@ import org.json.simple.parser.JSONParser;
 import publicholidays.model.holiday.HolidayImpl;
 import org.json.simple.parser.ParseException;
 
+import java.util.List;
+
 /**
  * Handles the response in JSON format from the APIs
  */
@@ -19,7 +21,7 @@ public class JsonManager {
      * @param response the response from the request to the Holiday API
      * @return a Holiday object modelling the response in JSON format
      */
-    public static Holiday getHoliday(String response) {
+    public static List<Holiday> getHoliday(String response) {
         HolidayImpl holiday = null;
         try {
             JSONArray holidays = (JSONArray) parser.parse(response);
@@ -37,7 +39,7 @@ public class JsonManager {
         } catch (ParseException e) {
             System.out.println("Wrong json format");
         }
-        return holiday;
+        return null;
     }
 
     /**
