@@ -20,4 +20,6 @@ public interface DatabaseManager {
     List<Holiday> getHoliday(LocalDate date, String countryCode);
 
     void commitHoliday(LocalDate date, String name, String countryCode);
+
+    void removeOldHolidays(LocalDate date, String countryCode);
 }

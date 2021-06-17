@@ -66,6 +66,7 @@ public class CalendarImpl implements Calendar {
                 notHolidays.add(date);
             }
             this.holidays.remove(date);
+            db.removeOldHolidays(date, input.getCountryCode());
             db.commitHoliday(date, "", input.getCountryCode());
         } else {
             if (this.holidays.containsKey(date)) {
@@ -73,6 +74,7 @@ public class CalendarImpl implements Calendar {
             } else {
                 this.holidays.put(date, holidays);
             }
+            db.removeOldHolidays(date, input.getCountryCode());
             for (Holiday holiday : holidays) {
                 db.commitHoliday(date, holiday.getName(), input.getCountryCode());
             }

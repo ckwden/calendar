@@ -62,9 +62,25 @@ public class DatabaseManagerImpl implements DatabaseManager {
         int month = date.getMonth().getValue();
         int day = date.getDayOfMonth();
         try {
-            String query = String.format("INSERT OR REPLACE INTO holidays VALUES(%s, %s, %s, \"%s\", \"%s\");",
+            String query = String.format("INSERT INTO holidays VALUES(%s, %s, %s, \"%s\", \"%s\");",
                     year, month, day,
                     name, countryCode);
+            Statement statement = conn.createStatement();
+            statement.executeUpdate(query);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    @Override
+    public void removeOldHolidays(LocalDate date, String countryCode) {
+        int year = date.getYear();
+        int month = date.getMonthValue();
+        int day = date.getDayOfMonth();
+        try {
+            String query = String.format("DELETE FROM holidays " +
+                            "WHERE year=%s AND month=%s AND day=%s AND country='%s';",
+                    year, month, day, countryCode);
             Statement statement = conn.createStatement();
             statement.executeUpdate(query);
         } catch (SQLException throwables) {
