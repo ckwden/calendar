@@ -73,7 +73,10 @@ public class CalendarTest {
 
         LocalDate newDate = LocalDate.of(2021, 1, 26);
         Holiday newHoliday = new HolidayImpl("Australia Day", 2021, 1, 26);
-        when(db.getHoliday(newDate, ph.getCountryCode())).thenReturn(newHoliday);
+        holidays = new ArrayList<>();
+        holidays.add(newHoliday);
+
+        when(db.getHoliday(newDate, ph.getCountryCode())).thenReturn(holidays);
         boolean res = calendar.getFromDatabase(newDate);
         assertTrue(res);
         assertEquals(2, calendar.getHolidays().values().size());
@@ -99,7 +102,10 @@ public class CalendarTest {
         calendar.determineHoliday(date, ph.getHoliday(date));
         LocalDate newDate = LocalDate.of(2021, 2, 2);
         Holiday newHoliday = new HolidayImpl("Holiday", 2021, 2, 2);
-        when(db.getHoliday(newDate, ph.getCountryCode())).thenReturn(newHoliday);
+
+        holidays = new ArrayList<>();
+        holidays.add(newHoliday);
+        when(db.getHoliday(newDate, ph.getCountryCode())).thenReturn(holidays);
         calendar.getFromDatabase(newDate);
 
         LocalDate now = LocalDate.now();

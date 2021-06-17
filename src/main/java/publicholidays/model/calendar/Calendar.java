@@ -17,7 +17,7 @@ public interface Calendar {
      * Retrieves the known public holidays of the calendar
      * @return the known holidays
      */
-    Map<LocalDate, Holiday> getHolidays();
+    Map<LocalDate, List<Holiday>> getHolidays();
 
     /**
      * Retrieves the known dates that are not public holidays of the calendar
@@ -55,7 +55,7 @@ public interface Calendar {
 
     PublicHoliday getPublicHoliday();
 
-    void determineHoliday(LocalDate now, List<Holiday> holiday);
+    void determineHoliday(LocalDate now, List<Holiday> holidays);
 
     void setThresholdCount(int count);
 }

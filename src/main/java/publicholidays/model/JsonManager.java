@@ -7,6 +7,7 @@ import org.json.simple.parser.JSONParser;
 import publicholidays.model.holiday.HolidayImpl;
 import org.json.simple.parser.ParseException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,24 +23,24 @@ public class JsonManager {
      * @return a Holiday object modelling the response in JSON format
      */
     public static List<Holiday> getHoliday(String response) {
-        HolidayImpl holiday = null;
+        List<Holiday> holidaysList = new ArrayList<>();
         try {
             JSONArray holidays = (JSONArray) parser.parse(response);
-            if (holidays.size() > 0) {
-                JSONObject obj = (JSONObject) holidays.get(0);
+            for (Object holiday : holidays) {
+                JSONObject obj = (JSONObject) holiday;
                 if (obj != null) {
                     String name = (String) obj.get("name");
                     String year = (String) obj.get("date_year");
                     String month = (String) obj.get("date_month");
                     String day = (String) obj.get("date_day");
-                    holiday = new HolidayImpl(name, Integer.parseInt(year), Integer.parseInt(month),
-                            Integer.parseInt(day));
+                    holidaysList.add(new HolidayImpl(name, Integer.parseInt(year), Integer.parseInt(month),
+                            Integer.parseInt(day)));
                 }
             }
         } catch (ParseException e) {
             System.out.println("Wrong json format");
         }
-        return null;
+        return holidaysList;
     }
 
     /**

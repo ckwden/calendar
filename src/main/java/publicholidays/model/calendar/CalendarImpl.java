@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public class CalendarImpl implements Calendar {
 
-    private Map<LocalDate, Holiday> holidays;
+    private Map<LocalDate, List<Holiday>> holidays;
     private List<LocalDate> notHolidays;
     private PublicHoliday input;
     private Messenger output;
@@ -32,7 +32,7 @@ public class CalendarImpl implements Calendar {
     }
 
     @Override
-    public Map<LocalDate, Holiday> getHolidays() {
+    public Map<LocalDate, List<Holiday>> getHolidays() {
         return this.holidays;
     }
 
@@ -79,21 +79,22 @@ public class CalendarImpl implements Calendar {
 
     @Override
     public boolean getFromDatabase(LocalDate date) {
-        Holiday holiday = db.getHoliday(date, input.getCountryCode());
-        if (holiday == null) {
-            return false;
-        } else {
-            if (holiday.getName().equals("")) {
-                if (!notHolidays.contains(date)) {
-                    notHolidays.add(date);
-                }
-            } else {
-                if (!holidays.containsKey(date)) {
-                    holidays.put(date, holiday);
-                }
-            }
-            return true;
-        }
+//        Holiday holiday = db.getHoliday(date, input.getCountryCode());
+//        if (holiday == null) {
+//            return false;
+//        } else {
+//            if (holiday.getName().equals("")) {
+//                if (!notHolidays.contains(date)) {
+//                    notHolidays.add(date);
+//                }
+//            } else {
+//                if (!holidays.containsKey(date)) {
+//                    holidays.put(date, holiday);
+//                }
+//            }
+//            return true;
+//        }
+        return false;
     }
 
     @Override
@@ -114,9 +115,11 @@ public class CalendarImpl implements Calendar {
     private String makeReport(int month) {
         StringBuilder report = new StringBuilder();
         report.append("Known holidays in ").append(Month.of(month).name()).append(":\n");
-        for (Holiday hol : holidays.values()) {
-            if (hol.getMonth() == month) {
-                report.append(hol.getName()).append("\n");
+        for (LocalDate date : holidays.keySet()) {
+            if (date.getMonth().getValue() == month) {
+                for (Holiday hol : holidays.get(date)) {
+                    report.append(hol.getName()).append("\n");
+                }
             }
         }
         return report.toString().stripTrailing();

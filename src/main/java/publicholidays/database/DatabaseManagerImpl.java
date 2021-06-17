@@ -5,6 +5,7 @@ import publicholidays.model.holiday.HolidayImpl;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Class that implements the DatabaseManager interface
@@ -31,7 +32,7 @@ public class DatabaseManagerImpl implements DatabaseManager {
     }
 
     @Override
-    public Holiday getHoliday(LocalDate date, String countryCode) {
+    public List<Holiday> getHoliday(LocalDate date, String countryCode) {
         int year = date.getYear();
         int month = date.getMonth().getValue();
         int day = date.getDayOfMonth();
@@ -51,7 +52,7 @@ public class DatabaseManagerImpl implements DatabaseManager {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return holiday;
+        return null;
     }
 
     @Override

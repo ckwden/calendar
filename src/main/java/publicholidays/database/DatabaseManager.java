@@ -3,6 +3,7 @@ package publicholidays.database;
 import publicholidays.model.holiday.Holiday;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Handles the calls made to the database containing known holidays/not holidays
@@ -16,7 +17,7 @@ public interface DatabaseManager {
      * @return A Holiday object from the record in the database with the matching date and country code, null if
      *         there is no such record
      */
-    Holiday getHoliday(LocalDate date, String countryCode);
+    List<Holiday> getHoliday(LocalDate date, String countryCode);
 
     void commitHoliday(LocalDate date, String name, String countryCode);
 }

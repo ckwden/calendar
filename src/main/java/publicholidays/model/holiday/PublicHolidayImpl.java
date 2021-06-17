@@ -29,7 +29,11 @@ public class PublicHolidayImpl implements PublicHoliday {
 
     @Override
     public List<Holiday> getHoliday(LocalDate date) {
-        return JsonManager.getHoliday(this.response);
+        List<Holiday> holidays = JsonManager.getHoliday(this.response);
+        if (holidays.size() == 0) {
+            return null;
+        }
+        return holidays;
     }
 
     @Override
