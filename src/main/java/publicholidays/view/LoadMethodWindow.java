@@ -8,7 +8,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import publicholidays.controller.calendar.CalendarController;
-import publicholidays.model.calendar.Calendar;
 
 import java.time.LocalDate;
 

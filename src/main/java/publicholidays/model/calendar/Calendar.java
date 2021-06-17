@@ -58,4 +58,6 @@ public interface Calendar {
     void determineHoliday(LocalDate now, List<Holiday> holidays);
 
     void setThresholdCount(int count);
+
+    int getThresholdCount();
 }

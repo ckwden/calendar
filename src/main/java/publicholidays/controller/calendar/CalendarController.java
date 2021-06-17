@@ -87,7 +87,12 @@ public class CalendarController implements ChangeListener<LocalDate> {
         if (calendar.getNotHolidays().contains(date)) {
             message = "This date is not a holiday";
         } else if (calendar.getHolidays().containsKey(date)) {
-            message = "This date is a holiday";
+            if (calendar.getHolidays().get(date).size() > calendar.getThresholdCount()) {
+                blinkWindow();
+                return;
+            } else {
+                message = "This date is a holiday";
+            }
         }
         new MessageWindowImpl(title, message).display();
     }
@@ -117,6 +122,10 @@ public class CalendarController implements ChangeListener<LocalDate> {
     private void getFromDatabase(LocalDate date) {
         dbThread.clickedDate = date;
         dbThread.restart();
+    }
+
+    private void blinkWindow() {
+        view.blink();
     }
 
     /**

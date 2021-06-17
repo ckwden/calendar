@@ -19,14 +19,19 @@ public class PublicHolidayDummy implements PublicHoliday {
      */
     @Override
     public List<Holiday> getHoliday(LocalDate date) {
-        int num = new Random().nextInt(2);
+        int num = new Random().nextInt(3);
         if (num == 0) {
+            return null;
+        }
+        if (num == 1) {
             List<Holiday> holidays = new ArrayList<>();
-            holidays.add(new HolidayImpl("fake", date.getYear(), date.getMonthValue(), date.getDayOfMonth()));
-            holidays.add(new HolidayImpl("fake2", date.getYear(), date.getMonthValue(), date.getDayOfMonth()));
+            holidays.add(new HolidayImpl("only fake", date.getYear(), date.getMonthValue(), date.getDayOfMonth()));
             return holidays;
         }
-        return null;
+        List<Holiday> holidays = new ArrayList<>();
+        holidays.add(new HolidayImpl("fake", date.getYear(), date.getMonthValue(), date.getDayOfMonth()));
+        holidays.add(new HolidayImpl("fake2", date.getYear(), date.getMonthValue(), date.getDayOfMonth()));
+        return holidays;
     }
 
     @Override

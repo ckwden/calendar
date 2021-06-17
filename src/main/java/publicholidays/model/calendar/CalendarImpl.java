@@ -22,6 +22,7 @@ public class CalendarImpl implements Calendar {
     private PublicHoliday input;
     private Messenger output;
     private DatabaseManager db;
+    private int thresholdCount;
 
     public CalendarImpl(PublicHoliday publicHoliday, Messenger output, DatabaseManager db) {
         this.holidays = new HashMap<>();
@@ -29,6 +30,7 @@ public class CalendarImpl implements Calendar {
         this.input = publicHoliday;
         this.output = output;
         this.db = db;
+        this.thresholdCount = 0;
     }
 
     @Override
@@ -52,7 +54,10 @@ public class CalendarImpl implements Calendar {
     }
 
     @Override
-    public void setThresholdCount(int count) {}
+    public void setThresholdCount(int count) { this.thresholdCount = count; }
+
+    @Override
+    public int getThresholdCount() { return this.thresholdCount; }
 
     @Override
     public void getFromAPI(LocalDate date) {
@@ -61,12 +66,12 @@ public class CalendarImpl implements Calendar {
 
     @Override
     public void determineHoliday(LocalDate date, List<Holiday> holidays) {
-        if (holidays == null) {
+        db.removeOldHolidays(date, input.getCountryCode());
+        if (holidays == null || holidays.size() == 0) {
             if (!notHolidays.contains(date)) {
                 notHolidays.add(date);
             }
             this.holidays.remove(date);
-            db.removeOldHolidays(date, input.getCountryCode());
             db.commitHoliday(date, "", input.getCountryCode());
         } else {
             if (this.holidays.containsKey(date)) {
@@ -74,10 +79,10 @@ public class CalendarImpl implements Calendar {
             } else {
                 this.holidays.put(date, holidays);
             }
-            db.removeOldHolidays(date, input.getCountryCode());
             for (Holiday holiday : holidays) {
                 db.commitHoliday(date, holiday.getName(), input.getCountryCode());
             }
+            notHolidays.remove(date);
         }
     }
 
@@ -117,13 +122,20 @@ public class CalendarImpl implements Calendar {
      */
     private String makeReport(int month) {
         StringBuilder report = new StringBuilder();
+        boolean overThreshold = false;
         report.append("Known holidays in ").append(Month.of(month).name()).append(":\n");
         for (LocalDate date : holidays.keySet()) {
             if (date.getMonth().getValue() == month) {
+                if (holidays.get(date).size() > this.thresholdCount && !overThreshold) {
+                    overThreshold = true;
+                }
                 for (Holiday hol : holidays.get(date)) {
                     report.append(hol.getName()).append("\n");
                 }
             }
+        }
+        if (overThreshold) {
+            report.insert(0, "*");
         }
         return report.toString().stripTrailing();
     }

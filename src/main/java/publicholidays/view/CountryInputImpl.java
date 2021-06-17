@@ -1,7 +1,6 @@
 package publicholidays.view;
 
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import publicholidays.model.calendar.Calendar;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

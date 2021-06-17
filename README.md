@@ -17,7 +17,17 @@
 ### Integrating database into implementation
 *RED:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/6ab24ea4356e0473b9e5e54c537736c98792d305  
 *GREEN:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/30d8e7e17c2e549efc6ac435a2ed7f23888f6887  
-*REFACTOR:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/c5a55af1d7af29bb1f2f25fa63e92322af2394d5  
+*REFACTOR:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/c5a55af1d7af29bb1f2f25fa63e92322af2394d5 
+
+### Extension Work
+#### Modification for dealing with multiple holidays in one day
+*RED:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/8cfbd8aadcb2fd6f75f30fb4ec8616b1f164cf86  
+*GREEN:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/206ab3219efaad019c0f7cbb8f0dc84d0f804c09  
+*REFACTOR:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/13c0127cfc650626718bab61993dbf7be3f32ca3
+
+#### Adding response to query results over threshold amount
+*RED:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/5804732cc4e42d64fa7a58adc266712d0f63e9fb  
+*GREEN:* 
 
 ## Configuration
 All API keys/required user information are stored in the "config.json" file in the *resources* folder
