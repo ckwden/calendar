@@ -13,9 +13,9 @@ public class PublicHolidayDummy implements PublicHoliday {
     private String countryCode;
 
     /**
-     * Returns a holiday based on a random number generated to simulate holidays/not holidays
+     * Returns a list of holidays based on a random number generated to simulate holidays/not holidays
      * @param date the date used for the query
-     * @return a dummy Holiday object if the number generated is 0, null if it is 1
+     * @return a dummy list of Holiday objects if the number generated is 0, null if it is 1
      */
     @Override
     public List<Holiday> getHoliday(LocalDate date) {

@@ -10,8 +10,8 @@ import javafx.stage.Stage;
 import java.util.Locale;
 
 /**
- * Implements the SecondaryWindow interface to ask for which country the user would query on for the Holiday API
- * upon start up of the application
+ * Implements the SecondaryWindow interface to ask for which country and threshold count the user would query on
+ * for the Holiday API upon start up of the application
  */
 public class CountryInputImpl implements SecondaryWindow {
 

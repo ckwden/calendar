@@ -18,9 +18,9 @@ public class JsonManager {
     private static JSONParser parser = new JSONParser();
 
     /**
-     * Creates a Holiday object modelling a response from a valid request to the Holiday API
+     * Creates a list of Holiday objects modelling a response from a valid request to the Holiday API
      * @param response the response from the request to the Holiday API
-     * @return a Holiday object modelling the response in JSON format
+     * @return a list of Holiday objects modelling the response in JSON format
      */
     public static List<Holiday> getHoliday(String response) {
         List<Holiday> holidaysList = new ArrayList<>();

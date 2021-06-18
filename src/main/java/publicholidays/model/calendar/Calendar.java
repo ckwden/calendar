@@ -40,7 +40,6 @@ public interface Calendar {
     /**
      * Triggers the API call to retrieve information about the given date
      * @param date the date that is queried to the Holiday API
-     * @return true if the date is a public holiday, false if not
      */
     void getFromAPI(LocalDate date);
 

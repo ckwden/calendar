@@ -11,7 +11,7 @@ public interface PublicHoliday {
     /**
      * Uses the given date to make a call to the Holiday API to see if it is a public holiday or not
      * @param date the date used for the query
-     * @return A Holiday object modelling the response from the API, null if the date is not a public holiday
+     * @return A list of Holiday objects modelling the response from the API, null if the date is not a public holiday
      */
     List<Holiday> getHoliday(LocalDate date);
 

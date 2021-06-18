@@ -17,5 +17,8 @@ public interface CalendarView {
 
     DatePicker getDatePicker();
 
+    /**
+     * Changes the window background a few times to simulate 'blinking' of the window
+     */
     void blink();
 }

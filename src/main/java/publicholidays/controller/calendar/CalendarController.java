@@ -122,6 +122,9 @@ public class CalendarController implements ChangeListener<LocalDate> {
         dbThread.restart();
     }
 
+    /**
+     * Calls the main view to 'blink'
+     */
     private void blinkWindow() {
         view.blink();
     }
