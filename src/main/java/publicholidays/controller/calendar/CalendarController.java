@@ -89,10 +89,8 @@ public class CalendarController implements ChangeListener<LocalDate> {
         } else if (calendar.getHolidays().containsKey(date)) {
             if (calendar.getHolidays().get(date).size() > calendar.getThresholdCount()) {
                 blinkWindow();
-                return;
-            } else {
-                message = "This date is a holiday";
             }
+            message = "This date is a holiday";
         }
         new MessageWindowImpl(title, message).display();
     }

@@ -27,7 +27,8 @@
 
 #### Adding response to query results over threshold amount
 *RED:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/5804732cc4e42d64fa7a58adc266712d0f63e9fb  
-*GREEN:* 
+*GREEN:* https://github.sydney.edu.au/cden4725/SCD2_2021_Exam/commit/e3787455f1a828f3b27ea19a4ee99ebcd1c5a708  
+*REFACTOR:* 
 
 ## Configuration
 All API keys/required user information are stored in the "config.json" file in the *resources* folder
